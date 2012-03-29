@@ -60,9 +60,15 @@ public class Test extends Thread{
 
 	public static void main(String args[]) throws Exception {
 
-        System.out.println("[DAN: starting up RoadRunner...]");
-
         System.out.println("[DAN: running main() in Test.java]");
+
+        if(RR.isStarted == false) {
+            // RR will most likely have been started when creating ShadowThread object
+            // for main thread, but just in case put this check in
+            System.out.println("[DAN: manually starting RoadRunner]");
+            RR.startUp();
+        }
+
 
         final Test t1 = new Test();
 		final Test t2 = new Test();
@@ -74,6 +80,7 @@ public class Test extends Thread{
 
 
         System.out.println("[DAN: shutting down RoadRunner...]");
+        RR.shutDown();
         System.out.println("[DAN: ending application. I hope I see this...]");
 	}
 }
