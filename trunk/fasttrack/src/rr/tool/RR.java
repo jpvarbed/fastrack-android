@@ -228,7 +228,7 @@ public class RR {
 
 	public static void startUp() {
 
-        Util.log("DAN: calling startUp in RR.java");
+        Util.log("DAN: calling RR.startUp()");
         isStarted = true;
         
         Runtime.getRuntime().addShutdownHook(new Thread("RR Shutdown") {
@@ -426,6 +426,9 @@ public class RR {
 
 	public static Tool getTool() {
 
+        // Add this check here since RR.startUp() doesn't get called automatically anymore
+        // User application will crash without this check when trying to create the ShadowThread
+        // for the main thread if this is not here
         if(isStarted == false) {
             RR.startUp();
         }
