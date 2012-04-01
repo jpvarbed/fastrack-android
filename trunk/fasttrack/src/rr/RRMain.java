@@ -64,6 +64,8 @@ import acme.util.time.TimedStmt;
 
 public class RRMain {
 
+    static boolean hasProcessedArgs = false;
+
 	public static final class RRMainLoader extends URLClassLoader {
 		private RRMainLoader(URL[] urls, ClassLoader parent) {
 			super(urls, parent);
@@ -144,8 +146,13 @@ public class RRMain {
 
 	public static int processArgs(String argv[]) {
 
-		final CommandLine cl = new CommandLine("rrrun", "MainClass/EventLog");
+        if(hasProcessedArgs) {
+            return 0;
+        }
+    
+        hasProcessedArgs = true;
 
+		final CommandLine cl = new CommandLine("rrrun", "MainClass/EventLog");
 		cl.add(new CommandLineOption<Boolean>("help", false, false, CommandLineOption.Kind.STABLE, "Print this message.") {
 			@Override
 			protected void apply(String arg) {
@@ -268,6 +275,8 @@ public class RRMain {
 		 * Expects class name as first argument, other arguments are by-passed.
 		 */
 		final int n = processArgs(argv);
+        Util.log("Size of argv: " + argv.length);
+//        Util.log("ARGV: " + argv);
 
 		ThreadStateExtensionAgent.addInstrumenter(instrumentOption.get());
 

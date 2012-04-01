@@ -72,8 +72,8 @@ public class InstrumentingDefineClassLoader implements DefineClassListener {
                             // Probably totally wrong
                             try {
                                 if(name.equals("test/Test")) {
-                                    System.out.println("DAN: writing file to tmp directory");
-                                    String name2 = "/home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/test/tmp/Test.class";
+                                    System.out.println("DAN: writing file to tmp directory.");
+                                    String name2 = "/home/dan/fasttrack/fastrack-android/fasttrack/test/tmp/Test.class";
                                     FileOutputStream fos = new FileOutputStream(name2);
                                     fos.write(bytes2);
                                     fos.close();
