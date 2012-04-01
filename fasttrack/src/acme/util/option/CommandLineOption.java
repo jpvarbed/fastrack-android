@@ -109,6 +109,7 @@ public abstract class CommandLineOption<T> extends Option<T> {
 	}
 	
 	void setCommandLine(CommandLine cl) {
+
 		if (this.container != null) {
 			Assert.fail("Command Line Option %s already contained in a command line.", this.id);
 		}
@@ -116,6 +117,12 @@ public abstract class CommandLineOption<T> extends Option<T> {
 	}
 	
 	public CommandLine getCommandLine() {
+
+        if(container == null) {
+            System.out.println("ERROR: returning null container in commandLineOption->getCommandLine()");
+            container.usage();
+        }
+
 		return container;
 	}
 }

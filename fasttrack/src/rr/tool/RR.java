@@ -185,8 +185,21 @@ public class RR {
 					final URL[] urls = URLUtils.getURLArrayFromString(System.getProperty("user.dir"), toolPathOption.get());
 					Util.logf("Creating tool loader with path %s", java.util.Arrays.toString(urls));
 					toolLoader = new ToolLoader(urls);
-					setTool(rr.tool.parser.parser.build(toolLoader, toolOption.get(), toolOption.getCommandLine()));
-					Util.logf("    complete chain: %s", getTool().toChainString());
+
+                    System.out.println("DAN: about to call setTool with toolOption.get() = " + toolOption.get());
+                    CommandLine tempCL = toolOption.getCommandLine();
+                    if(tempCL == null) {
+                        System.out.println("ERROR: toolOption.getCommandLine() returned null at RR.java->createTool()");
+                    }
+                    else {
+                        System.out.println("CL: toolOption.getCommandLine() didn't return null at RR.java->createTool()");
+                    }
+            
+                    Tool tempTool = rr.tool.parser.parser.build(toolLoader, toolOption.get(), toolOption.getCommandLine());
+					System.out.println("DAN: about to call setTool on tool " + tempTool.toString());				
+                    setTool(tempTool);
+                    
+                    Util.logf("    complete chain: %s", getTool().toChainString());
 
 					firstEnter = createChain("enter");
 					firstExit = createChain("exit");
@@ -215,6 +228,7 @@ public class RR {
 			}
 			); 
 		} catch (Exception e) {
+            System.out.println("[EXCEPTION: in RR.java->createTool()]");
 			Assert.panic(e);
 		}
 	}
@@ -230,7 +244,15 @@ public class RR {
 
         Util.log("DAN: calling RR.startUp()");
         isStarted = true;
-        
+    
+        Util.log("CL: calling RRMain.java->processArgs() from RR.startUp()");
+        String[] myArgv = {"-tool=FT","test.Test"};
+        RRMain.processArgs(myArgv); 
+
+
+        Util.log("TOOL: calling createTool() from RR.startUp()");
+        createTool();
+
         Runtime.getRuntime().addShutdownHook(new Thread("RR Shutdown") {
 			@Override
 			public void run() {

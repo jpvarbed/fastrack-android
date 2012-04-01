@@ -11,4 +11,4 @@ echo "===================================="
 echo "===================================="
 echo ""
 echo ""
-java -classpath classes/ test.Test 2>&1 | tee runout
+java -classpath classes/:jars/java-cup-11a.jar test.Test 2>&1 | tee output 
