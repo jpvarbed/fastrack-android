@@ -102,6 +102,7 @@ public class StateExtensionTransformer implements ClassFileTransformer {
 		public ThreadStateClassVisitor(ClassVisitor cv, String className) {
 			super(cv);
 			this.className = className;
+            System.out.println("ThreadState: Creating ThreadStateClassVisitor for class: " + className);
 		}
 
 		@Override
@@ -176,7 +177,8 @@ public class StateExtensionTransformer implements ClassFileTransformer {
 		public WatchedClassVisitor(ClassVisitor cv, String className) {
 			super(cv);
 			this.className = className;
-		}
+		    System.out.println("ThreadState: Creating WatcheeClassVisitor for class: " + className);
+        }
 
 
 		@Override

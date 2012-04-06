@@ -53,6 +53,7 @@ import acme.util.time.TimedExpr;
 
 
 
+
 @SuppressWarnings("unchecked")
 public class MetaDataInfoMaps {
 
@@ -119,6 +120,7 @@ public class MetaDataInfoMaps {
 				waits  = read("waits", in); 
 				joins =  read("joins", in); 
 				interrupts =  read("interrupts", in); 
+                System.out.println("[META: doing some weird read thing on fieldAccesses]");
 				fieldAccesses = read("field accesses", in); 
 				arrayAccesses = read("array accesses", in);
 				invokes = read("invokes", in);
@@ -283,7 +285,10 @@ public class MetaDataInfoMaps {
 	}
 
 	public static FieldAccessInfo makeFieldAccess(SourceLocation loc, MethodInfo enclosing, boolean isWrite, FieldInfo field) {
-		FieldAccessInfo a = getFieldAccesses().get(MetaDataInfoKeys.getFieldAccessKey(loc, enclosing, field, isWrite));
+		
+        System.out.println("[META: making field access]");
+
+        FieldAccessInfo a = getFieldAccesses().get(MetaDataInfoKeys.getFieldAccessKey(loc, enclosing, field, isWrite));
 		if (a == null) {
 			a = new FieldAccessInfo(getFieldAccesses().size(), loc, enclosing, isWrite, field);
 			getFieldAccesses().put(a);

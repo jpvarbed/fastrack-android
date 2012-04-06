@@ -85,7 +85,8 @@ public class MetaDataAllocator<S extends MetaDataInfo> implements Iterable<S>, S
 	}
 
 	public synchronized S put(final S t) {
-		if (t.id >= mapById.length) {
+		
+        if (t.id >= mapById.length) {
 			resize(t.id * 2);
 		}
 		mapById[t.id] = t;

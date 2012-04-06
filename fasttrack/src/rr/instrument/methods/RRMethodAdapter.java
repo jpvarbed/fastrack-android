@@ -1159,6 +1159,7 @@ public class RRMethodAdapter extends MethodAdapter implements Opcodes {
      * @param method the method to be invoked.
      */
     public void invokeStatic(final Type owner, final Method method) {
+        System.out.println("[DAN: calling invokeStatic() in RRMethodAdapter.java]"); 
         invokeInsn(Opcodes.INVOKESTATIC, owner, method);
     }
 

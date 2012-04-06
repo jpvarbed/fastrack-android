@@ -179,7 +179,9 @@ public class FastTrackTool extends Tool implements BarrierListener<FastTrackBarr
 	@Override
 	public void create(NewThreadEvent e) {
 		ShadowThread currentThread = e.getThread();
-		CV cv = ts_get_cv(currentThread);
+        System.out.println("FT: about to call ts_get_cv in FastTrackTool.java->create()");
+		
+        CV cv = ts_get_cv(currentThread);
 
 		if (cv == null) {
 			cv = new CV(INIT_CV_SIZE);

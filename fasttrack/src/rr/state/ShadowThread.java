@@ -169,7 +169,8 @@ public class ShadowThread extends Decoratable implements ShadowVar {
 
 
 	private static void initFreeList() {
-		if (tidMap == null) {
+
+        if (tidMap == null) {
 			final Integer n = rr.tool.RR.maxTidOption.get();
 			tidMap = new ShadowThread[n];
 			Util.log("Creating Free List With " + n + " Tids");

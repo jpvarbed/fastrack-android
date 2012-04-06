@@ -139,7 +139,7 @@ public class Loader {
         
         System.out.println("CACHE: writing file: " + className + " to cache.");
         
-        final String dump = Instrumentor.dumpClassOption.get();
+        String dump = Instrumentor.dumpClassOption.get();
 		if (!dump.equals("")) {
 			String path = dump + "/" + prefix + "/" + className;
 			String dirPath = path.substring(0,path.lastIndexOf("/"));
@@ -147,7 +147,7 @@ public class Loader {
 			FileOutputStream fos;
 			try {
 				String name = path + ".class";
-                System.out.println("CACHE: writing file (full path name): " + name + " to cache.");
+                System.out.println("CACHE1: writing file (full path name): " + name + " to cache.");
                 fos = new FileOutputStream(name);
 				fos.write(b);
 				fos.close();
@@ -155,6 +155,25 @@ public class Loader {
 				Assert.fail(e);
 			} 
 		}
+        
+        else {
+			String dirPath = "/home/dan/fasttrack/fastrack-android/fasttrack/test/tmp/";
+            new File(dirPath).mkdirs();
+			FileOutputStream fos;
+			try {
+                System.out.println("Class name (before): " + className);
+				className = className.substring(className.lastIndexOf("/")+1, className.length());
+                System.out.println("Class name (after): " + className);
+                String name =  dirPath + className + ".class";
+                System.out.println("CACHE2: writing file (full path name): " + name + " to cache.");
+                fos = new FileOutputStream(name);
+				fos.write(b);
+				fos.close();
+			} catch (Exception e) {
+				Assert.fail(e);
+            }
+        }
+
 	}
 
 

@@ -76,6 +76,8 @@ import acme.util.Util;
 import acme.util.Yikes;
 import acme.util.option.CommandLine;
 import acme.util.option.CommandLineOption;
+import rr.meta.MetaDataAllocator;
+
 
 public class RREventGenerator extends RR {
 
@@ -106,8 +108,25 @@ public class RREventGenerator extends RR {
 
 
 	protected static FieldAccessEvent prepAccessEvent(Object target, ShadowVar gs, int fadId, ShadowThread td, boolean isWrite) {
-		FieldAccessInfo fad = MetaDataInfoMaps.getFieldAccesses().get(fadId);
-		AbstractFieldUpdater updater;
+
+        System.out.println("Calling prepAccessEvent on var: " + td.toString());
+
+        MetaDataAllocator<FieldAccessInfo> tempMDA = MetaDataInfoMaps.getFieldAccesses();
+        if(tempMDA == null) {
+            System.out.println("ERROR: tempMDA is null!");
+        }
+        System.out.println("META: size of tempMDA is: " + tempMDA.size());
+        FieldAccessInfo tempFAD = tempMDA.get(fadId);
+        if(tempFAD == null) {
+            System.out.println("ERROR: tempFAD is null!");
+        }
+
+        FieldAccessInfo fad = MetaDataInfoMaps.getFieldAccesses().get(fadId);
+        if(fad == null) {
+            System.out.println("ERROR: fad is null!");
+        }
+
+        AbstractFieldUpdater updater;
 
 		// must be done first!  because loading updater could trigget other accesses,
 		// which will write over fields of fae.  Bitter...
@@ -134,7 +153,7 @@ public class RREventGenerator extends RR {
 
 
 	public static void readAccess(Object target, ShadowVar gs, int fadId, ShadowThread td) {
-		try {
+		try { 
 			FieldAccessEvent ae = prepAccessEvent(target, gs, fadId, td, false);
 			firstAccess.access(ae);	
 			ae.setInfo(null);
@@ -144,6 +163,7 @@ public class RREventGenerator extends RR {
 	}
 
 	public static void writeAccess(Object target, ShadowVar gs, int fadId, ShadowThread td) {
+        System.out.println("[META: writing access event.]");
 		try {
 			FieldAccessEvent ae = prepAccessEvent(target, gs, fadId, td, true);
 			firstAccess.access(ae);

@@ -55,6 +55,7 @@ public class FieldAccessInfo extends AccessInfo {
 
 
 	public FieldInfo getField() {
+
 		return field;
 	}
 

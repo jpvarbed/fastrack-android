@@ -154,6 +154,7 @@ public abstract class Tool  {
 		} catch (NoSuchMethodException e) {
 			hasWriteFPMethod = false;
 		}
+        System.out.println("DAN: exiting tool constructor for " + name);
 	}
 
 
