@@ -73,7 +73,10 @@ public class GuardStateInstructionAdapter extends ThreadDataInstructionAdapter {
 	
 	@Override
 	public void visitFieldInsn(final int opcode, final String owner, final String name, final String desc) {
-		FieldInfo f = RRTypeInfo.resolveFieldDescriptor(owner, name, desc);
+	
+        System.out.println("[META: calling visitFieldIns " + owner + " " + name + " " + desc + "]");
+
+        FieldInfo f = RRTypeInfo.resolveFieldDescriptor(owner, name, desc);
 		if (InstrumentationFilter.shouldInstrument(f)) {
 			switch (opcode) {
 			case GETFIELD: 
@@ -87,7 +90,7 @@ public class GuardStateInstructionAdapter extends ThreadDataInstructionAdapter {
 					Util.log("Skipping field access: " + access);
 					super.visitFieldInsn(opcode, owner, name, desc);
 				} else { 
-					int fad = access.getId();
+                    int fad = access.getId();
 					this.visitAccessMethod(owner, name, desc, isWrite, isStatic, fad, threadDataLoc);
 				}
 				return;

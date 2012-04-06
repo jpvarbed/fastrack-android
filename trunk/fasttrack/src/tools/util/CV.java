@@ -38,13 +38,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package tools.util;
 
+import java.io.Serializable; 
 import rr.RRMain;
 import acme.util.count.Counter;
 
 /**
  * For efficiency, clock vectors are mutable, extensible functions from ShadowThread ids to ints
  */
-public class CV {
+public class CV implements Serializable {
 	protected int[] a;
 	private static final int FAST = 8;
 

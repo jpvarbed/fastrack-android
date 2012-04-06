@@ -99,19 +99,21 @@ public class FieldInfo extends MetaDataInfo {
 
 
 	public AbstractFieldUpdater getUpdater() {
-		try {
+		
+        try {
 			if (updater == null) {
 				try {
 					final LoaderContext loaderForClass = Loader.loaderForClass(rrClass.getName());
 					final Class guardStateThunk = loaderForClass.getGuardStateThunk(rrClass.getName(), name, isStatic);
 					setUpdater((AbstractFieldUpdater) guardStateThunk.newInstance());
 				} catch (Exception e) {
-					Assert.panic(e);
+	                Assert.panic(e);
 				}
 			}
 		} catch (Throwable e) {
 			Assert.panic(e);
 		}
+
 		return updater;
 	}
 
