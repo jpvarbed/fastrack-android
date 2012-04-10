@@ -52,6 +52,9 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
+import java.net.URLClassLoader;
+import acme.util.io.URLUtils;
+
 import rr.RRMain;
 import rr.error.ErrorMessage;
 import rr.error.ErrorMessages;
@@ -79,10 +82,25 @@ import acme.util.option.CommandLineOption;
 import acme.util.time.TimedStmt;
 
 public class RR {
-    
+   
     public static boolean isStarted = false;
+    public static final class JasonClass extends URLClassLoader {
+		private JasonClass(URL[] urls, ClassLoader parent) {
+			super(urls, parent);
+		}
 
-	public static final CommandLineOption<String> toolPathOption = CommandLine.makeString("toolpath", Util.getenv("RR_TOOLPATH",""), CommandLineOption.Kind.STABLE, "The class path used to find RoadRunner tools specified.");
+		@Override
+		public String toString() {
+			return "JasonClass";
+		}
+
+		@Override
+		public Class<?> findClass(String name) throws ClassNotFoundException {
+			return super.findClass(name);
+		}
+	}
+	public static JasonClass loader;
+    public static final CommandLineOption<String> toolPathOption = CommandLine.makeString("toolpath", Util.getenv("RR_TOOLPATH",""), CommandLineOption.Kind.STABLE, "The class path used to find RoadRunner tools specified.");
 	public static final CommandLineOption<String> classPathOption = CommandLine.makeString("classpath", ".", CommandLineOption.Kind.STABLE, "The class path used to load classes from the target program.");
 
 	public static CommandLineOption<String> toolOption = 
@@ -244,10 +262,13 @@ public class RR {
 
         Util.log("DAN: calling RR.startUp()");
         isStarted = true;
-    
         Util.log("CL: calling RRMain.java->processArgs() from RR.startUp()");
         String[] myArgv = {"-tool=FT","test.Test"};
         RRMain.processArgs(myArgv); 
+        
+        String urls = RR.classPathOption.get();
+		loader = new JasonClass(URLUtils.getURLArrayFromString(System.getProperty("user.dir"), urls), RR.class.getClassLoader());
+        loader.findClass("test.Class"); 
 
 
         Util.log("TOOL: calling createTool() from RR.startUp()");
