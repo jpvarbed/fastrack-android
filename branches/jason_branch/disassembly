@@ -1,0 +1,20 @@
+Compiled from "Test.java"
+public class test.Test extends java.lang.Thread{
+    public static final int ITERS;
+    public static int y;
+    public static transient rr.state.ShadowVar __$rr_y;
+    public static void __$rr_put_y(int, int, rr.state.ShadowThread);
+    public static int __$rr_get_y(int, rr.state.ShadowThread);
+    public test.Test();
+    public void __$rr_inc__$rr__Original_();
+    public void __$rr___$rr_inc__$rr__Original___$rr__with_ThreadState_(rr.state.ShadowThread);
+    public void inc();
+    public void __$rr_inc__$rr__with_ThreadState_(rr.state.ShadowThread);
+    public void __$rr_run__$rr__Original_();
+    public void __$rr___$rr_run__$rr__Original___$rr__with_ThreadState_(rr.state.ShadowThread);
+    public void run();
+    public static void __$rr_main__$rr__Original_(java.lang.String[])       throws java.lang.Exception;
+    public static void __$rr___$rr_main__$rr__Original___$rr__with_ThreadState_(java.lang.String[], rr.state.ShadowThread)       throws java.lang.Exception;
+    public static void main(java.lang.String[])       throws java.lang.Exception;
+}
+
