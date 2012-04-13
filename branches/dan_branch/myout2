@@ -1,0 +1,199 @@
+
+[main: RoadRunner Agent Loaded.]
+[main: Running in FAST Mode]
+[RR: DAN: hellooooo]
+[RR: DAN: 1]
+[RR: Creating Fresh Meta Data]
+[RR: OPTIONS:]
+  [RR: (rr.state.agent.ThreadStateExtensionAgent) javaArgs             = test2.Test          ]
+  [RR: (rr.state.agent.ThreadStateExtensionAgent) noDecInline          = false               ]
+  [RR: (acme.util.Util)                   quiet                = false               ]
+  [RR: (acme.util.Util)                   logs                 = log                 ]
+  [RR: (acme.util.Util)                   out                  =                     ]
+  [RR: (acme.util.Util)                   err                  =                     ]
+  [RR: (rr.RRMain)                        noinst               = false               ]
+  [RR: (rr.RRMain)                        inst                 = INST                ]
+  [RR: (rr.RRMain)                        infThreads           = 0                   ]
+  [RR: (rr.RRMain)                        args                 = []                  ]
+  [RR: (acme.util.Debug)                  d                    = []                  ]
+  [RR: (rr.RRMain$4)                      help                 = false               ]
+  [RR: (rr.tool.RR)                       toolpath             = /home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/classes/rr/simple:/home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/classes/tools]
+  [RR: (rr.tool.RR)                       classpath            = .                   ]
+  [RR: (rr.tool.RR)                       tool                 = rrtools.simple.EmptyTool]
+  [RR: (rr.tool.RR)                       tools                = false               ]
+  [RR: (rr.tool.RR)                       noxml                = false               ]
+  [RR: (rr.tool.RR)                       constantGC           = false               ]
+  [RR: (rr.tool.RR)                       noFP                 = false               ]
+  [RR: (rr.tool.RR)                       noEnter              = false               ]
+  [RR: (rr.tool.RR)                       xml                  = log.xml             ]
+  [RR: (rr.tool.RR)                       pulse                =                     ]
+  [RR: (rr.tool.RR)                       maxTime              = 0                   ]
+  [RR: (rr.tool.RR)                       maxMem               = 10240               ]
+  [RR: (rr.tool.RR)                       maxTid               = 16                  ]
+  [RR: (rr.tool.RR)                       stacks               = false               ]
+  [RR: (rr.tool.RR)                       values               = false               ]
+  [RR: (rr.tool.RR)                       noTidGC              = false               ]
+  [RR: (rr.tool.RR)                       noEventReuse         = false               ]
+  [RR: (rr.loader.LoaderContext)          repository           =                     ]
+  [RR: (rr.meta.MetaDataInfoMaps)         meta                 = null                ]
+  [RR: (rr.meta.InstrumentationFilter)    methods              = [default=ACCEPT]    ]
+  [RR: (rr.meta.InstrumentationFilter)    fields               = ["-.*this\$.*", default=ACCEPT]]
+  [RR: (rr.meta.InstrumentationFilter)    lines                = [default=ACCEPT]    ]
+  [RR: (rr.meta.InstrumentationFilter)    classes              = ["-java..*", "-javax..*", "-com.sun..*", "-org.objectweb.asm..*", "-sun..*", "-rr..*", "-rrtools..*", "-acme..*", "-.*__\$rr_.*", default=ACCEPT]]
+  [RR: (rr.meta.InstrumentationFilter)    shadowThread         = ["-.*main\(\[Ljava/lang/String;\)V.*", "-.*run\(\)V.*", "+.*\$rr__Original.*", "-.*\$rr.*", "-.*\&lt;init\&gt;.*", "-.*\&lt;clinit\&gt;.*", default=ACCEPT]]
+  [RR: (rr.meta.InstrumentationFilter)    noop                 = [default=ACCEPT]    ]
+  [RR: (rr.instrument.classes.ThreadDataThunkInserter) noConstructor        = false               ]
+  [RR: (rr.instrument.classes.CloneFixer) noClone              = false               ]
+  [RR: (rr.instrument.Instrumentor)       dump                 =                     ]
+  [RR: (rr.instrument.Instrumentor)       field                = FINE                ]
+  [RR: (rr.instrument.Instrumentor)       fancy                = false               ]
+  [RR: (rr.instrument.Instrumentor)       arraySites           = false               ]
+  [RR: (rr.instrument.Instrumentor)       Use TestAcquires     = false               ]
+  [RR: (rr.tool.RREventGenerator)         nojoin               = false               ]
+  [RR: (rr.tool.RREventGenerator)         multiLoader          = false               ]
+  [RR: (rr.tool.RREventGenerator)         indices              = 2147483647          ]
+  [RR: (rr.state.update.Updaters)         updaters             = SAFE                ]
+  [RR: (rr.state.ArrayStateFactory)       array                = NONE                ]
+  [RR: (rr.barrier.BarrierMonitor)        nobarrier            = false               ]
+  [RR: (rr.state.AbstractArrayStateCache) noArrayLookupOpt     = false               ]
+  [RR: (rr.instrument.methods.ThreadDataInstructionAdapter) callSites            = false               ]
+  [RR: (rr.error.ErrorMessage)            maxWarn              = 100                 ]
+[RR: 0.0120 sec]
+[RR: Transforming rr/state/ShadowThread]
+[RR: done]
+[RR: Installing DefineClassListener rr.loader.InstrumentingDefineClassLoader@b988a6]
+[RR: System Class Path = [file:/home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/./]]
+[RR: Tool Init()]
+[RR: Running target]
+[main: ----- ----- ----- -----       Meep Meep.      ----- ----- ----- -----]
+[main: ]
+[main: Instrumenting test2/Test (Loader=0x01006D75 (class rr.RRMain$RRMainLoader))]
+  [main: Replace java/lang/Thread.start()V]
+  [main: Replace java/lang/Thread.start()V]
+  [main: Replace java/lang/Thread.join()V]
+  [main: Replace java/lang/Thread.join()V]
+[RR: 0.437 sec]
+[RR: Total Time: 437]
+[RR: Tool Fini()]
+<entry>
+  <data> Tue Mar 20 01:32:52 EDT 2012 </data> 
+  <mode> FAST </mode> 
+  <timeout> NO </timeout> 
+  <options>
+    <option><name> javaArgs </name>           <value> test2.Test  </value> </option>
+    <option><name> noDecInline </name>        <value> false </value> </option>
+    <option><name> quiet </name>              <value> false </value> </option>
+    <option><name> logs </name>               <value> log </value> </option>
+    <option><name> out </name>                <value>  </value>   </option>
+    <option><name> err </name>                <value>  </value>   </option>
+    <option><name> noinst </name>             <value> false </value> </option>
+    <option><name> inst </name>               <value> INST </value> </option>
+    <option><name> infThreads </name>         <value> 0 </value>  </option>
+    <option><name> args </name>               <value> [] </value> </option>
+    <option><name> d </name>                  <value> [] </value> </option>
+    <option><name> help </name>               <value> false </value> </option>
+    <option><name> toolpath </name>           <value> /home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/classes/rr/simple:/home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/classes/tools </value> </option>
+    <option><name> classpath </name>          <value> . </value>  </option>
+    <option><name> tool </name>               <value> rrtools.simple.EmptyTool </value> </option>
+    <option><name> tools </name>              <value> false </value> </option>
+    <option><name> noxml </name>              <value> false </value> </option>
+    <option><name> constantGC </name>         <value> false </value> </option>
+    <option><name> noFP </name>               <value> false </value> </option>
+    <option><name> noEnter </name>            <value> false </value> </option>
+    <option><name> xml </name>                <value> log.xml </value> </option>
+    <option><name> pulse </name>              <value>  </value>   </option>
+    <option><name> maxTime </name>            <value> 0 </value>  </option>
+    <option><name> maxMem </name>             <value> 10240 </value> </option>
+    <option><name> maxTid </name>             <value> 16 </value> </option>
+    <option><name> stacks </name>             <value> false </value> </option>
+    <option><name> values </name>             <value> false </value> </option>
+    <option><name> noTidGC </name>            <value> false </value> </option>
+    <option><name> noEventReuse </name>       <value> false </value> </option>
+    <option><name> repository </name>         <value>  </value>   </option>
+    <option><name> meta </name>               <value> null </value> </option>
+    <option><name> methods </name>            <value> [default=ACCEPT] </value> </option>
+    <option><name> fields </name>             <value> ["-.*this\$.*", default=ACCEPT] </value> </option>
+    <option><name> lines </name>              <value> [default=ACCEPT] </value> </option>
+    <option><name> classes </name>            <value> ["-java..*", "-javax..*", "-com.sun..*", "-org.objectweb.asm..*", "-sun..*", "-rr..*", "-rrtools..*", "-acme..*", "-.*__\$rr_.*", default=ACCEPT] </value> </option>
+    <option><name> shadowThread </name>       <value> ["-.*main\(\[Ljava/lang/String;\)V.*", "-.*run\(\)V.*", "+.*\$rr__Original.*", "-.*\$rr.*", "-.*\&lt;init\&gt;.*", "-.*\&lt;clinit\&gt;.*", default=ACCEPT] </value> </option>
+    <option><name> noop </name>               <value> [default=ACCEPT] </value> </option>
+    <option><name> noConstructor </name>      <value> false </value> </option>
+    <option><name> noClone </name>            <value> false </value> </option>
+    <option><name> dump </name>               <value>  </value>   </option>
+    <option><name> field </name>              <value> FINE </value> </option>
+    <option><name> fancy </name>              <value> false </value> </option>
+    <option><name> arraySites </name>         <value> false </value> </option>
+    <option><name> Use TestAcquires </name>   <value> false </value> </option>
+    <option><name> nojoin </name>             <value> false </value> </option>
+    <option><name> multiLoader </name>        <value> false </value> </option>
+    <option><name> indices </name>            <value> 2147483647 </value> </option>
+    <option><name> updaters </name>           <value> SAFE </value> </option>
+    <option><name> array </name>              <value> NONE </value> </option>
+    <option><name> nobarrier </name>          <value> false </value> </option>
+    <option><name> noArrayLookupOpt </name>   <value> false </value> </option>
+    <option><name> callSites </name>          <value> false </value> </option>
+    <option><name> maxWarn </name>            <value> 100 </value> </option>
+    <option><name> sanity </name>             <value> false </value> </option>
+    <option><name> noInterrupt </name>        <value> false </value> </option>
+  </options>
+  <system>
+    <host> dan-ThinkPad-T420 </host> 
+    <name> java.vm.version </name>     <value> 20.1-b02 </value> 
+    <name> java.vm.vendor </name>      <value> Sun Microsystems Inc. </value> 
+    <name> java.vm.name </name>        <value> Java HotSpot(TM) Server VM </value> 
+    <name> java.class.path </name>     <value> .:/home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/build/jar/rragent.jar </value> 
+    <name> os.name </name>             <value> Linux </value> 
+    <name> os.arch </name>             <value> i386 </value> 
+    <name> os.version </name>          <value> 3.0.0-16-generic-pae </value> 
+    <name> user.name </name>           <value> dan </value> 
+    <name> user.dir </name>            <value> /home/dan/fasttrack/stephenfreund-RoadRunner-20b650b </value> 
+    <memPeak> 47 </memPeak> 
+    <memUsed> 42 </memUsed> 
+    <memMax> 1029 </memMax> 
+    <compileTime> 369 </compileTime> 
+    <gc> <name> PS Scavenge </name> <time> 0 </time> </gc>
+    <gc> <name> PS MarkSweep </name> <time> 0 </time> </gc>
+  </system>
+  <instrumented> test2/Test  </instrumented> 
+  <instrumentedNum> 1 </instrumentedNum> 
+  <skipped>  </skipped> 
+  <skippedNum> 0 </skippedNum> 
+  <sanityChecked>  </sanityChecked> 
+  <sanityCheckedNum> 0 </sanityCheckedNum> 
+  <counters>
+
+    <counter><name> "ArrayStateFactory: Size" </name>                    <value> 0 </value> </counter>
+    <counter><name> "ArrayStateFactory: Attic Move Time" </name>         <value> <total>0.00000</total> <count>0</count>  </value> </counter>
+    <counter><name> "ArrayStateFactory: Attic Hits" </name>              <value> 0 </value> </counter>
+
+    <counter><name> "Clone: Count" </name>                               <value> 0 </value> </counter>
+
+    <counter><name> "Handler: Count" </name>                             <value> 0 </value> </counter>
+
+    <counter><name> "Time: Instrumenter" </name>                         <value> <total>22.0000</total> <count>1</count> <ave>22.0000</ave> </value> </counter>
+  </counters>
+  <tool>
+    <name> Last Tool </name> 
+  </tool>
+  <threadCount> 0 </threadCount> 
+  <errorTotal> 0 </errorTotal> 
+  <distinctErrorTotal> 0 </distinctErrorTotal> 
+  <methods>
+  </methods>
+  <fields>
+  </fields>
+  <arrays>
+  </arrays>
+  <locks>
+  </locks>
+  <fieldAccesses>
+  </fieldAccesses>
+  <errorCountPerErrorType>
+  </errorCountPerErrorType>
+  <warningsTotal> 0 </warningsTotal> 
+  <yikesTotal> 0 </yikesTotal> 
+  <failed> false </failed> 
+  <time> 437 </time> 
+</entry>
+[RR: Time = 437]
+[RR: Exiting: 0]
