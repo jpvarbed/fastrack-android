@@ -1,4 +1,0 @@
-"The RoadRunner Dynamic Analysis Framework for Concurrent Programs"
-www.cs.williams.edu/~freund/rr/
-
-
