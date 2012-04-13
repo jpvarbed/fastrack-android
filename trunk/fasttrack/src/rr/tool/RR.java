@@ -268,7 +268,13 @@ public class RR {
         
         String urls = RR.classPathOption.get();
 		loader = new JasonClass(URLUtils.getURLArrayFromString(System.getProperty("user.dir"), urls), RR.class.getClassLoader());
-        loader.findClass("test.Class"); 
+        String className = "test.Test";
+        try{
+            //loader.findClass(className);
+            //loader.findClass("tools/fasttrack/Epoch");
+        } catch(Exception e){
+            Util.log("JASON FAIL findclass");
+        }
 
 
         Util.log("TOOL: calling createTool() from RR.startUp()");
