@@ -81,6 +81,8 @@ import acme.util.io.XMLWriter;
 import acme.util.option.CommandLine;
 import acme.util.option.CommandLineOption;
 import acme.util.time.TimedStmt;
+import tools.fasttrack.FastTrackTool;
+
 
 public class RR {
    
@@ -304,7 +306,7 @@ public class RR {
 		});
 		xml();
 		Util.quietOption.set(false);
-		Util.logf("Time = %d", endTime - startTime);
+		//Util.logf("Time = %d", endTime - startTime);
 		final String dump = Instrumentor.dumpClassOption.get();
 		if (!dump.equals("")) {
 			MetaDataInfoMaps.dump(dump + "/rr.meta");
@@ -365,7 +367,10 @@ public class RR {
 			public void apply(Tool t) {
                 if(t.toString().equals("tools.fasttrack.FastTrackTool")) {
                     Util.log("FastTrack: ");
-                    t.printXML(null);
+
+                    for(ShadowThread td : ShadowThread.getThreads()) {
+                        Util.log("\t" + FastTrackTool.toString(td));
+                    }
                 }
 			}
 		});
