@@ -480,7 +480,7 @@ public class FastTrackTool extends Tool implements BarrierListener<FastTrackBarr
 		for (ShadowThread td : ShadowThread.getThreads()) {
 			//xml.print("thread", toString(td));
 		    // XXX: above native, below Android
-            Util.log(toString(td));
+            Util.log(td.toString());
         }
 	}
 
