@@ -38,6 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package rr.meta;
 
+import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -51,31 +52,35 @@ import acme.util.decorations.DecorationFactory;
 import acme.util.option.Option;
 import acme.util.time.TimedExpr;
 
-
-
+//import android.content.res.AssetManager;
+//import android.content.res.Resources;
 
 @SuppressWarnings("unchecked")
 public class MetaDataInfoMaps {
 
-	public static final Option<String> metaOption = new Option<String>("meta", Util.getenv("RR_META_DATA", null));
-
-	private static final MetaDataAllocator<ClassInfo> classes;
-	private static final MetaDataAllocator<FieldInfo> fields;
-	private static final MetaDataAllocator<MethodInfo> methods;
-	private static final MetaDataAllocator<AcquireInfo> acquires;
-	private static final MetaDataAllocator<ReleaseInfo> releases;
-	private static final MetaDataAllocator<StartInfo> starts;
-	private static final MetaDataAllocator<WaitInfo> waits;
-	private static final MetaDataAllocator<JoinInfo> joins;
-	private static final MetaDataAllocator<InterruptInfo> interrupts;
-	private static final MetaDataAllocator<FieldAccessInfo> fieldAccesses;
-	private static final MetaDataAllocator<ArrayAccessInfo> arrayAccesses;
-	private static final DecorationFactory<OperationInfo> opDecorations;
-	private static final MetaDataAllocator<InvokeInfo> invokes;
+	//public static final Option<String> metaOption = new Option<String>("meta", Util.getenv("RR_META_DATA", null));
+    //XXX: use the line below for the app version. It will ensure that meta data is 
+    //     always read from file
+    public static final Option<String> metaOption = new Option<String>("meta","assets/dump");
 
 
+	private static MetaDataAllocator<ClassInfo> classes;
+	private static MetaDataAllocator<FieldInfo> fields;
+	private static MetaDataAllocator<MethodInfo> methods;
+	private static MetaDataAllocator<AcquireInfo> acquires;
+	private static MetaDataAllocator<ReleaseInfo> releases;
+	private static MetaDataAllocator<StartInfo> starts;
+	private static MetaDataAllocator<WaitInfo> waits;
+	private static MetaDataAllocator<JoinInfo> joins;
+	private static MetaDataAllocator<InterruptInfo> interrupts;
+	private static MetaDataAllocator<FieldAccessInfo> fieldAccesses;
+	private static MetaDataAllocator<ArrayAccessInfo> arrayAccesses;
+	private static DecorationFactory<OperationInfo> opDecorations;
+	private static MetaDataAllocator<InvokeInfo> invokes;
 
-	private static final GlobalMetaDataInfoDecorations globalDecorations;
+
+
+	private static GlobalMetaDataInfoDecorations globalDecorations;
 
 	static final private <T extends MetaDataInfo> MetaDataAllocator<T> read(final String name, final ObjectInputStream in) throws Exception {
 		return Util.log(new TimedExpr<MetaDataAllocator<T>>("Loading " + name + "...") {
@@ -86,7 +91,12 @@ public class MetaDataInfoMaps {
 		});
 	}
 
-	static { 
+    public static ObjectInputStream in;
+
+    //static {
+	// XXX: line below for Android
+    public static void readMetaData() { 
+    
 		String s = metaOption.get();
 		if (s == null) {
 			Util.logf("Creating Fresh Meta Data");
@@ -110,8 +120,11 @@ public class MetaDataInfoMaps {
 			try {
 				final String file = s + "/rr.meta";
 				Util.logf("Loading Meta Data from %s...", file);
-				ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-				classes = read("classes", in); 
+
+                //in = new ObjectInputStream(new FileInputStream(file));
+				// XXX: line above is commented out for Android
+
+                classes = read("classes", in); 
 				fields = read("fields", in);
 				methods = read("methods", in);
 				acquires = read("acquires", in);
@@ -120,7 +133,6 @@ public class MetaDataInfoMaps {
 				waits  = read("waits", in); 
 				joins =  read("joins", in); 
 				interrupts =  read("interrupts", in); 
-                System.out.println("[META: doing some weird read thing on fieldAccesses]");
 				fieldAccesses = read("field accesses", in); 
 				arrayAccesses = read("array accesses", in);
 				invokes = read("invokes", in);

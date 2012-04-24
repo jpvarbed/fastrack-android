@@ -41,13 +41,20 @@ package rr.loader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
+import java.net.URL;
 
 import org.objectweb.asm.commons.Method;
 
+import rr.tool.RR;
+import rr.loader.LoaderContext;
+import rr.RRMain.RRMainLoader;
+import rr.RRMain;
 import rr.instrument.Instrumentor;
 import rr.instrument.hooks.SpecialMethodListener;
 import rr.instrument.hooks.SpecialMethods;
@@ -58,6 +65,8 @@ import rr.meta.MetaDataInfoMaps;
 import rr.meta.MetaDataInfoVisitor;
 import acme.util.Assert;
 import acme.util.io.XMLWriter;
+import acme.util.io.URLUtils;
+import acme.util.Util;
 
 public class Loader {
 
@@ -98,6 +107,73 @@ public class Loader {
 
 	public static synchronized LoaderContext loaderForClass(String name) {
 		LoaderContext w = classes.get(name);
+   
+        if(name.equals("test/Test") && w == null) {
+
+            try {
+                // Attempt 1
+                //URL[] urls = new URL[] {new URL("file:/home/dan/fasttrack/fastrack-android/fasttrack/./")};
+                //System.out.println("[TEMP: printing URL: " + urls[0].toString() + "]");
+                //RRMainLoader definingLoader = new RRMainLoader(urls,null);
+                
+                //Attempt 2
+                String urls = RR.classPathOption.get();
+                RRMainLoader definingLoader = new RRMainLoader(URLUtils.getURLArrayFromString(System.getProperty("user.dir"), urls), RRMain.class.getClassLoader());
+
+   
+                System.out.println("[TEMP: my definingLoader to string: " + definingLoader.toString() + "]");
+                LoaderContext currentLoader = Loader.get(definingLoader);
+                classes.put("test/Test",currentLoader);
+                w = currentLoader;
+           
+                if(RRMain.loader == null) {
+                    System.out.println("[TEMP: RRMain's loader is null]");
+                    RRMain.loader = definingLoader;
+                }
+
+                if(w == null) {
+                    System.out.println("[LC: fucked up]");
+                } 
+                else {
+                    System.out.println("[LC: maybe actually worked?]");
+                }
+
+            } catch (Exception e) {
+                System.out.println("[ERROR: failed at creating loader manually!]");
+                System.out.println("[ERROR: exception message: " + e.getMessage());
+                System.out.println("[ERROR: exception string: " + e.toString());
+                Assert.panic(e);
+            }
+                
+       }
+ 
+        // Code to read LoaderContext object from file       
+        /*
+        if(name.equals("test/Test") && w == null) {
+            System.out.println("[IO: reading loaderContext from file.]");
+            
+            try {
+                FileInputStream fin = new FileInputStream("/home/dan/fasttrack/fastrack-android/fasttrack/test/tmp/cl.ser");
+                ObjectInputStream ois = new ObjectInputStream(fin);
+                w = (LoaderContext) ois.readObject();
+
+                if(w == null) {
+                    System.out.println("[ERROR: LoaderContext read from file is null!]");
+                }
+                else {
+                    System.out.println("[IO: LoaderContext to string: " + w.toString());
+                }
+
+            } catch (Exception e) {
+                System.out.println("[ERROR: failed reading LoaderContext from file!]");
+                System.out.println("[ERROR: exception message: " + e.getMessage());
+                System.out.println("[ERROR: exception string: " + e.toString());
+                Assert.panic(e);
+            }
+
+        }
+        */    
+    
 		return w;
 	}
 
@@ -157,7 +233,7 @@ public class Loader {
 		}
         
         else {
-			String dirPath = "/home/dan/fasttrack/fastrack-android/fasttrack/test/tmp/";
+			String dirPath = "/home/dan/fasttrack/fastrack-android/backup/test/tmp/";
             new File(dirPath).mkdirs();
 			FileOutputStream fos;
 			try {

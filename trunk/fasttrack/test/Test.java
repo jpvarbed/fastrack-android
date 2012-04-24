@@ -38,8 +38,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package test;
 
-import rr.state.ShadowThread;
-import rr.tool.RR;
+//import rr.state.ShadowThread;
+//import rr.tool;
+//import rr.tool.RR;
 
 public class Test extends Thread{
 
@@ -48,7 +49,7 @@ public class Test extends Thread{
 	static int y;
 
     public void inc() {
-	y++;
+        y++;
     }
 
 	@Override
@@ -58,17 +59,7 @@ public class Test extends Thread{
 		}
 	}
 
-	public static void main(String args[]) throws Exception {
-
-        System.out.println("[DAN: running main() in Test.java]");
-
-        if(RR.isStarted == false) {
-            // RR will most likely have been started when creating ShadowThread object
-            // for main thread, but just in case put this check in
-            System.out.println("[DAN: manually starting RoadRunner]");
-            RR.startUp();
-        }
-
+	public void startTest() throws Exception {
 
         final Test t1 = new Test();
 		final Test t2 = new Test();
@@ -76,11 +67,24 @@ public class Test extends Thread{
 		t2.start();
 		t1.join();
 		t2.join();
-		System.out.println("Is it " + (ITERS * 2) + "? " + y);
+		//System.out.println("Is it " + (ITERS * 2) + "? " + y);
 
-
-        System.out.println("[DAN: shutting down RoadRunner...]");
-        RR.shutDown();
-        System.out.println("[DAN: ending application. I hope I see this...]");
 	}
+
+    public void printSuper() {
+        System.out.println("Test super class: " + this.getClass().getSuperclass().toString());
+    }
+
+    public static void main(String[] args) {
+
+        Test t = new Test();
+        t.printSuper();
+
+        try {
+            t.startTest();
+        } catch (Exception e) {
+            System.out.println("Failure!");
+        }
+    }
+
 }

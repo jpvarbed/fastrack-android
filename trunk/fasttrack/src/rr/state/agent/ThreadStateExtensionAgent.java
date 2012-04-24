@@ -50,6 +50,7 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.commons.EmptyVisitor;
 
+import rr.RRMain;
 import rr.loader.InstrumentingDefineClassLoader;
 import rr.loader.NonInstrumentingPreDefineClassLoader;
 import rr.loader.RepositoryBuildingDefineClassLoader;
@@ -66,7 +67,7 @@ public class ThreadStateExtensionAgent {
 
 	private static final String FIELD_ACCESSOR_NAME_PREFIX = "ts_get";
 
-	static private final StateExtensionTransformer trans = new StateExtensionTransformer();
+	//static private final StateExtensionTransformer trans = new StateExtensionTransformer();
 
 	public static CommandLineOption<Boolean> noDecorationInline = 
 		CommandLine.makeBoolean("noDecInline", false, CommandLineOption.Kind.EXPERIMENTAL, "Turn off Thread State Decoration Inlining.");
@@ -76,41 +77,50 @@ public class ThreadStateExtensionAgent {
 		System.out.println("[premain: Installling RoadRunner Agent...]");
 		System.out.println("[premain: agentArgs: " + agentArgs);
        
-        inst.addTransformer(trans);
+//        inst.addTransformer(trans);
+
+        RRMain.runNatively = true;
 
 		System.out.println("[premain: RoadRunner Agent Loaded...]");
 	}
 
 	public synchronized static void addInstrumenter(InstrumentationMode mode) {
-		DefineClassListener hook = null; 
+		
+        System.out.println("******");
+        
+        DefineClassListener hook = null; 
 		switch (mode) {
 			case INST: hook = new InstrumentingDefineClassLoader(); break;
 			case NOINST: hook = new NonInstrumentingPreDefineClassLoader(); break;
 			case REP: hook = new RepositoryBuildingDefineClassLoader(); break; 
 		}
 		Util.log("Installing DefineClassListener " + hook);
-		trans.setDefineClassHook(hook);
+//		trans.setDefineClassHook(hook);
 	}
 
 
 
 	private static class ToolClassVisitor extends ClassAdapter implements Opcodes {
-
 		String owner;
 
 		public ToolClassVisitor(ClassVisitor cv, String owner) {
+
 			super(cv);
 			this.owner = owner;
-		}
+		
+            System.out.println("******");
+        }
 
 		@Override
 		public MethodVisitor visitMethod(int access, String name, String desc,
 				String signature, String[] exceptions) {
 			if (name.startsWith(FIELD_ACCESSOR_NAME_PREFIX)) {
 				ThreadStateFieldExtension f = new ThreadStateFieldExtension(owner, "rr/state/ShadowThread", name.substring(7), Type.getReturnType(desc).getDescriptor());
-				trans.addField(f);
+//				trans.addField(f);
 			}
-			return super.visitMethod(access, name, desc, signature, exceptions);
+		
+            System.out.println("******");
+            return super.visitMethod(access, name, desc, signature, exceptions);
 		}
 
 	}
@@ -121,8 +131,8 @@ public class ThreadStateExtensionAgent {
 			Util.log("Skipping ShadowThread extension for " + name);
 			return;
 		}
-
-		trans.addToolClassToWatchList(name);
+        System.out.println("******");
+//		trans.addToolClassToWatchList(name);
 		try {
 			Util.log(new TimedStmt("Extending States for " + name) {
 				@Override

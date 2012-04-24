@@ -43,6 +43,7 @@ import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Arrays;
+import java.io.Serializable;
 
 import rr.instrument.Instrumentor;
 import rr.instrument.classes.CloneFixer;
@@ -61,23 +62,56 @@ import acme.util.io.URLUtils;
 import acme.util.option.CommandLine;
 import acme.util.option.CommandLineOption;
 import acme.util.time.TimedStmt;
+import java.io.Serializable;
 
 public class RRMain {
 
     static boolean hasProcessedArgs = false;
 
-	public static final class RRMainLoader extends URLClassLoader {
-		private RRMainLoader(URL[] urls, ClassLoader parent) {
-			super(urls, parent);
-		}
+    // Set to true if RR is started normall (ie. rrrun ...)
+    // false if target application invoked RR
+    public static boolean runNatively = false;
 
-		@Override
+	public static final class RRMainLoader extends URLClassLoader {
+
+        public RRMainLoader(URL[] urls, ClassLoader parent) {
+            super(urls, parent);
+
+            if(parent == null) {
+                System.out.println("[RRMAIN: RRMainLoader constructor parameter 'parent' is null]");
+            }
+            else {
+                System.out.println("[RRMAIN: RRMainLoader constructor parameter 'parent' is type: " + parent.getClass().toString() + "]");
+            }
+
+            System.out.println("[RRMAIN: printing urls array with length: " + urls.length + "]");
+            for(int i = 0; i < urls.length; i++) {
+                System.out.println("\t" + urls[i]);
+            }   
+            System.out.println("[RRMAIN: class location: " + this.getClass().getResource(".") + "]");
+            System.out.println("[RRMAIN: constructed object with hash: " + this.hashCode() + "]");            
+            /*
+            URL[] urls2 = null;
+            try {
+                urls2 = new URL[] {new URL("file:/home/dan/fasttrack/fastrack-android/fasttrack/./")};
+            } catch (Exception e) {
+                Assert.panic(e);
+            }
+                
+            if(urls2[0].equals(urls[0])) {
+                System.out.println("[TEMP: URLs seemt o match]");
+            }
+            */
+		}
+		
+        @Override
 		public String toString() {
 			return "RRMainLoader";
 		}
 
 		@Override
 		public Class<?> findClass(String name) throws ClassNotFoundException {
+            System.out.println("[TEMP: is this the problem?]");
 			return super.findClass(name);
 		}
 	}
@@ -174,8 +208,8 @@ public class RRMain {
 		cl.add(rr.tool.RR.toolOption);
 		cl.add(rr.tool.RR.printToolsOption); 
 
-		cl.add(rr.loader.LoaderContext.repositoryPathOption);
-
+		//cl.add(rr.loader.LoaderContext.repositoryPathOption);
+/*
 		cl.addGroup("Instrumentor");
 		cl.add(noInstrumentOption); 
 		cl.add(instrumentOption); 
@@ -194,9 +228,9 @@ public class RRMain {
 //		cl.add(InstrumentingDefineClassLoader.sanityOption);
 		cl.add(Instrumentor.fancyOption);
 		cl.add(Instrumentor.trackArraySitesOption);
-		cl.add(ThreadStateExtensionAgent.noDecorationInline);
-		cl.addOrderConstraint(ThreadStateExtensionAgent.noDecorationInline, rr.tool.RR.toolOption);
-
+		//cl.add(ThreadStateExtensionAgent.noDecorationInline);
+		//cl.addOrderConstraint(ThreadStateExtensionAgent.noDecorationInline, rr.tool.RR.toolOption);
+*/
 
 		cl.addGroup("Monitor");
 		cl.add(rr.tool.RR.xmlFileOption);
@@ -210,7 +244,7 @@ public class RRMain {
 		cl.add(rr.tool.RR.forceGCOption);
 		cl.add(Updaters.updateOptions);
 		cl.add(ArrayStateFactory.arrayOption);
-		cl.add(Instrumentor.fieldOption);
+		//cl.add(Instrumentor.fieldOption);
 		cl.add(rr.barrier.BarrierMonitor.noBarrier);
 		cl.add(RR.noEventReuseOption);
 		cl.add(AbstractArrayStateCache.noOptimizedArrayLookupOption);

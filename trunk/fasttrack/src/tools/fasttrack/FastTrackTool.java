@@ -248,11 +248,10 @@ public class FastTrackTool extends Tool implements BarrierListener<FastTrackBarr
 			synchronized(x) {
 
 				if (fae.isWrite()) {
-
 					// WRITE
 					final int lastWriteEpoch = x.lastWrite;
 					if (lastWriteEpoch == tdEpoch) {
-						return;
+                        return;
 					}
 
 					final int lastWriter = Epoch.tid(lastWriteEpoch);				
@@ -479,8 +478,10 @@ public class FastTrackTool extends Tool implements BarrierListener<FastTrackBarr
 	@Override
 	public void printXML(XMLWriter xml) {
 		for (ShadowThread td : ShadowThread.getThreads()) {
-			xml.print("thread", toString(td));
-		}
+			//xml.print("thread", toString(td));
+		    // XXX: above native, below Android
+            Util.log(toString(td));
+        }
 	}
 
 

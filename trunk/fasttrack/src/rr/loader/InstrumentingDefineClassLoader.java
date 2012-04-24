@@ -3,6 +3,8 @@ package rr.loader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.IOException;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
@@ -24,8 +26,11 @@ public class InstrumentingDefineClassLoader implements DefineClassListener {
 		CommandLine.makeBoolean("sanity", false, CommandLineOption.Kind.EXPERIMENTAL, "Check whether uninstrumented classes contain synchronization operations that will be ignored.");
 
 	public synchronized byte[] define(ClassLoader definingLoader, final String name, final byte[] bytes)   {
-	
-        System.out.println("CACHE: calling define with name: " + name);
+        
+        // NOTE: runtime type of definingLoader is rr.RRMain$RRMainLoader
+        //Thread.dumpStack();
+
+        System.out.println("[TEMP: correct loader hash: " + definingLoader.hashCode() + "]");
 
         final LoaderContext currentLoader = Loader.get(definingLoader);
 		final String internalName = name.replace('.', '/');
@@ -34,8 +39,37 @@ public class InstrumentingDefineClassLoader implements DefineClassListener {
             System.out.println("CACHE: returning because of synthetic class");
 			return bytes;
 		} else {
-			Loader.classes.put(internalName, currentLoader); 
-			if (!InstrumentationFilter.shouldInstrument(rrClass)) {
+            
+            System.out.println("DAN: callings classes.put with internal name: " + internalName);
+            System.out.println("DAN: type of currentLoader is " + currentLoader.getClass().toString());
+
+            /*
+            if(internalName.equals("test/Test")) {
+                try {
+                    System.out.println("[IO: writing currentLoader to file for class: " + internalName + "]");
+                    FileOutputStream fout = new FileOutputStream("/home/dan/fasttrack/fastrack-android/fasttrack/test/tmp/dl.ser");
+                    ObjectOutputStream oos = new ObjectOutputStream(fout);
+                    oos.writeObject(definingLoader);
+                    oos.close();
+                    
+                    fout = new FileOutputStream("/home/dan/fasttrack/fastrack-android/fasttrack/test/tmp/cl.ser");
+                    oos = new ObjectOutputStream(fout);
+                    oos.writeObject(currentLoader);
+                    oos.close();
+                    
+                    System.out.println("[IO: successfully wrote ClassLoader and LoaderContext to disk.]");
+                } catch (IOException e) {
+                    System.out.println("[ERROR: failed writing currenLoader to file!]");
+                    System.out.println("[ERROR: exception message: " + e.getMessage());
+                    System.out.println("[ERROR: exception string: " + e.toString());
+                }
+            }
+            */
+           
+            Loader.classes.put(internalName, currentLoader); 
+
+
+            if (!InstrumentationFilter.shouldInstrument(rrClass)) {
 				System.out.println("CACHE: Skipping " + name + " (Loader=" + Util.objectToIdentityString(definingLoader) + ")");
 				MetaDataBuilder.preLoadFully(currentLoader, bytes);
 				if (sanityOption.get()) {
@@ -73,7 +107,7 @@ public class InstrumentingDefineClassLoader implements DefineClassListener {
                             try {
                                 if(name.equals("test/Test")) {
                                     System.out.println("DAN: writing file to tmp directory.");
-                                    String name2 = "/home/dan/fasttrack/fastrack-android/fasttrack/test/tmp/Test.class";
+                                    String name2 = "/home/dan/fasttrack/fastrack-android/backup/test/tmp/Test.class";
                                     FileOutputStream fos = new FileOutputStream(name2);
                                     fos.write(bytes2);
                                     fos.close();

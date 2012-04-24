@@ -43,6 +43,7 @@ export JVM_ARGS="-Xmx1g -Xms1g"
 
 export PATH=${PATH}:`pwd`/auto/bin:`pwd`/bin
 
+export RR_META_DATA=`pwd`/dump
 export RR_MODE=FAST
 export RR_HOME=`pwd`
 export RR_TOOLPATH=`pwd`/classes/rr/simple:`pwd`/classes/tools

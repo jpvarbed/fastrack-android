@@ -39,6 +39,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package rr.loader;
 
 import java.io.IOException;
+import java.io.Serializable; 
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Hashtable;
@@ -46,6 +47,7 @@ import java.util.Hashtable;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 
+import rr.RRMain;
 import rr.instrument.Constants;
 import rr.instrument.Instrumentor;
 import rr.instrument.classes.GuardStateModifierCreator;
@@ -59,6 +61,8 @@ import acme.util.option.CommandLineOption;
 
 
 public class LoaderContext {
+
+    //private static final long serialVersionUID = 50L;
 
 	protected final ClassLoader loader;
 
@@ -76,6 +80,7 @@ public class LoaderContext {
 	protected static URLClassLoader repositoryLoader = null;
 
 	public LoaderContext(ClassLoader loader) {
+        System.out.println("[TEMP: setting ClassLoader field in LoaderContext loader type: " + loader.getClass().toString() + "]");
 		this.loader = loader;
 	}
 
@@ -177,10 +182,22 @@ public class LoaderContext {
 
 	public Class getGuardStateThunk(final String className, final String fieldName, final boolean isStatic)  {
 		final String thunkName = Constants.getUpdateThunkName(className, fieldName);
-		Class c = loader.findLoadedClass(thunkName);
-		if (c != null) return c;
+        System.out.println("[TEMP: loader class found at: " + loader.getClass().getResource(".") + "]");
+        System.out.println("[TEMP: loader is type class: " + loader.getClass().toString() + "\tthunkName: " + thunkName + "]");
+        //System.out.println("[TEMP: super class of loader: " + loader.getClass().getSuperclass().getSuperclass().toString() + "]");
+        //System.out.println("[TEMP: loader hash: " + loader.hashCode() + "]");
+        
+        Class c = loader.findLoadedClass(thunkName);
+
+        if (c != null) {
+            System.out.println("[TEMP: c is non-null\tclass: " + c.toString() + "]");
+            return c;
+        } else {
+            System.out.println("[SHIT: findLoadedClass returned non-null]");
+        }
 		byte b[] = Loader.readFromFileCache("updaters", thunkName);
 		if (b == null) {
+            System.out.println("[TEMP: b is null in getGuardStateThunk]");
 			b = GuardStateModifierCreator.dump(className, fieldName, isStatic);
 		}
 		return defineClass(thunkName, b);
@@ -189,10 +206,16 @@ public class LoaderContext {
 	public synchronized Class defineClass(final String className, byte[] bytes) {
 
 		Class c = loader.findLoadedClass(className);
-		if (c == null) {
+        if (c == null) {
+            System.out.println("[TEMP: c is null in defineClass()]");
 			c = loader.defineClass(className, bytes, 0, bytes.length);
 		}
-		return c;
+        else {
+            System.out.println("[SHIT: findLoadedClass returned non-null]");
+        }
+
+	    System.out.println("[TEMP: c is class type: " + c.toString() + " in defineClass()]");
+        return c;
 	}
 
 	public ClassLoader getClassLoader() {
