@@ -89,7 +89,13 @@ public class FieldAccessEvent extends AccessEvent {
 
 	@Override
 	public final boolean putShadow(ShadowVar newGS) {
-		boolean b = getUpdater().putState(target, this.getOriginalShadow(), newGS);
+
+        AbstractFieldUpdater afu = getUpdater();
+        if(afu == null) {
+            System.out.println("[putShadow: updater is null!]");
+        }
+
+        boolean b = afu.putState(target, this.getOriginalShadow(), newGS);
 		if (!b) {
 			this.originalShadow = getOriginalShadow();
 		}

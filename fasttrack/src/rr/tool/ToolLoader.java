@@ -52,7 +52,15 @@ import acme.util.Assert;
 import acme.util.Util;
 import acme.util.time.TimedStmt;
 
+import tools.fasttrack.FastTrackTool;
+
+
 public class ToolLoader extends URLClassLoader {
+
+    // For Android; allows app to open resources and pass InputStream handles here
+    public static InputStream ftPropertiesStream;
+    public static InputStream simplePropertiesStream;
+
 
 	private static class Entry {
 		final String toolName;
@@ -75,17 +83,34 @@ public class ToolLoader extends URLClassLoader {
 	protected void buildToolMap(URL[] urls) {
 		final Set<URL> loaded = new HashSet<URL>();
 		try {
-			Enumeration<URL> e = getResources("rrtools.properties");
-			while (e.hasMoreElements()) {
-				final URL prop = e.nextElement();
-				if (loaded.contains(prop)) {
+            //Enumeration<URL> e = getResources("rrtools.properties");  
+            //while (e.hasMoreElements()) {
+            //final URL prop = e.nextElement();
+            // XXX: lines above for native, below for Android
+            for(int i = 0; i < urls.length; i++) {
+                final URL prop = urls[i];
+
+                if (loaded.contains(prop)) {
 					continue; // may see same file twice.
 				}
-				Util.log(new TimedStmt("" + prop) {
+				Util.log(new TimedStmt("prop:" + prop) {
 					@Override
 					public void run() throws Exception {
 						Properties p = new Properties();
-						p.load(prop.openStream());
+
+                        //p.load(prop.openStream());
+                        // XXX: lines below for Android
+                        
+                        if(prop.equals(new URL("file:/simple"))) {
+                            p.load(simplePropertiesStream);
+                        }
+                        else if(prop.equals(new URL("file:/ft"))) {
+                            p.load(ftPropertiesStream);
+                        }
+                        else {
+                            Thread.dumpStack();
+                        } 
+                        
 						Util.log(p.keySet());
 
 						for (Object s : p.keySet()) {
@@ -124,6 +149,15 @@ public class ToolLoader extends URLClassLoader {
 			expanded = x;
 		}
 		try {
+            if(expanded.equals("tools.fasttrack.FastTrackTool")) {
+                Util.logf("Manually loading FastTrackTool class");
+                FastTrackTool ftTool = new FastTrackTool("FastTrackTool",null,null);
+                return (Class<? extends Tool>) ftTool.getClass();                
+            }
+            else {
+                Util.logf("Attempting to load class: " + expanded);
+            }
+
 			return (Class<? extends Tool>) this.loadClass(expanded);
 		} catch (ClassNotFoundException e) {
 			Assert.fail("Cannot find Tool class '" + expanded + "'");
@@ -148,7 +182,7 @@ public class ToolLoader extends URLClassLoader {
 		} 
 		expanded = expanded.replace(".", "/");
 		InputStream in = getToolAsStream(expanded);
-		ThreadStateExtensionAgent.registerTool(expanded, in);
+		//ThreadStateExtensionAgent.registerTool(expanded, in);
 	}
 
 	@Override

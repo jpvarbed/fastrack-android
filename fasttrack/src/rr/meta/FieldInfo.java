@@ -38,10 +38,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package rr.meta;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.net.URL;
+
+import rr.RRMain;
 import rr.loader.Loader;
 import rr.loader.LoaderContext;
 import rr.state.update.AbstractFieldUpdater;
 import acme.util.Assert;
+
+import rr.state.update.SafeFieldUpdater;
+//import updaters.__$rr_test_Test__$rr__Update_y;
 
 public class FieldInfo extends MetaDataInfo {
 	protected final ClassInfo rrClass;
@@ -99,21 +111,75 @@ public class FieldInfo extends MetaDataInfo {
 
 
 	public AbstractFieldUpdater getUpdater() {
-		
-        try {
-			if (updater == null) {
-				try {
-					final LoaderContext loaderForClass = Loader.loaderForClass(rrClass.getName());
-					final Class guardStateThunk = loaderForClass.getGuardStateThunk(rrClass.getName(), name, isStatic);
-					setUpdater((AbstractFieldUpdater) guardStateThunk.newInstance());
-				} catch (Exception e) {
-	                Assert.panic(e);
-				}
-			}
-		} catch (Throwable e) {
-			Assert.panic(e);
-		}
 
+                
+        if (updater == null) {
+            
+
+                System.out.println("[getUpdater: getting loader for field: " + name + "]");
+                /*
+                
+                if(name.equals("y") && RRMain.runNatively == false) {
+                    
+                    try {
+                        System.out.println("[getUpdater: reading updater object from disk]");
+
+                        FileInputStream fin = new FileInputStream("/home/dan/fasttrack/fastrack-android/fasttrack/test/tmp/obj.ser");
+                        ObjectInputStream ois = new ObjectInputStream(fin);
+                        //updater = (__$rr_test_Test__$rr__Update_y) ois.readObject();
+                        updater = (SafeFieldUpdater) ois.readObject();
+                        ois.close();
+                
+                        System.out.println("[getUpdater: successfully read updater from file!]"); 
+                
+                    } catch (Exception e) {
+                        System.out.println("[ERROR: failed reading updater from file!]");
+                        System.out.println("[ERROR: exception message: " + e.getMessage());
+                        System.out.println("[ERROR: exception string: " + e.toString());
+                        Assert.panic(e);
+                    } 
+                }
+                else {*/
+                    try {
+                        /* 
+                        try {
+                            System.out.println("[getUpdater: reading definingLoader from disk]");
+
+                            FileInputStream fin = new FileInputStream("/home/dan/fasttrack/fastrack-android/fasttrack/test/tmp/obj2.ser");
+                            ObjectInputStream ois = new ObjectInputStream(fin);
+                            ClassLoader cl = (ClassLoader) ois.readObject();
+                            ois.close();
+                    
+                            LoaderContext currentLoader = Loader.get(cl);
+                            Loader.classes.put("test/Test", currentLoader);
+
+                            System.out.println("[getUpdater: successfully read updater from file!]"); 
+
+                        } catch (Exception e) {
+                            System.out.println("[ERROR: failed reading definingLoader from file!]");
+                            System.out.println("[ERROR: exception message: " + e.getMessage());
+                            System.out.println("[ERROR: exception string: " + e.toString());
+                            Assert.panic(e);
+                        }
+                        */
+
+                        final LoaderContext loaderForClass = Loader.loaderForClass(rrClass.getName());
+    
+                        if(loaderForClass == null) {
+                            
+                            System.out.println("[ERROR: getUpdater: loaderForClass is null! class: " + rrClass.getName() + "]");
+                        }				
+                            
+                        final Class guardStateThunk = loaderForClass.getGuardStateThunk(rrClass.getName(), name, isStatic);
+                        setUpdater((AbstractFieldUpdater) guardStateThunk.newInstance());
+                    
+                    } catch (Throwable e) {
+                        Assert.panic(e);
+                    }
+               // }
+        }
+        
+        
 		return updater;
 	}
 
@@ -130,6 +196,30 @@ public class FieldInfo extends MetaDataInfo {
 	}
 
 	public void setUpdater(AbstractFieldUpdater guardStateThunk) {
-		updater = guardStateThunk;
+  
+        //System.out.println("[DEBUG: dumping stack in FieldInfo.java->setUpdater()]");
+        //Thread.dumpStack(); 
+        
+        System.out.println("[setUpdater: parameter of type: " + guardStateThunk.getClass().toString());
+        URL u = guardStateThunk.getClass().getClassLoader().getResource(".");
+        System.out.println("[URL: location: " + u.toString() + "]");
+        System.out.println("[URL: object's class: " + guardStateThunk.getClass().toString());
+        
+        /*
+        try {
+            FileOutputStream fout = new FileOutputStream("/home/dan/fasttrack/fastrack-android/fasttrack/test/tmp/obj.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(guardStateThunk);
+            oos.close();
+            System.out.println("[IO: successfully wrote guardStateThunk to disk.]");
+
+        } catch (IOException e) {
+            System.out.println("[ERROR: failed writing guardStateThunk to file!]");
+            System.out.println("[ERROR: exception message: " + e.getMessage());
+            System.out.println("[ERROR: exception string: " + e.toString());
+        }	
+        */
+        updater = guardStateThunk;
+
 	}
 }

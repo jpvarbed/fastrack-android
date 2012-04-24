@@ -38,9 +38,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package rr.state.update;
 
+
+import java.io.Serializable;
 import rr.state.ShadowVar;
 
-public abstract class AbstractFieldUpdater {
+public abstract class AbstractFieldUpdater implements Serializable {
 	public abstract ShadowVar getState(Object o); 
 	public abstract boolean putState(Object o, ShadowVar expectedGS, ShadowVar newGS);
 

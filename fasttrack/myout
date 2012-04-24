@@ -1,32 +1,74 @@
 
 [premain: Installling RoadRunner Agent...]
 [premain: agentArgs: null
-[premain: RoadRunner Agent Loaded...]
 [main: Running in FAST Mode]
+[premain: RoadRunner Agent Loaded...]
 [RR: DAN: hellooooo]
 [RR: DAN: 2]
 [RR: Creating Fresh Meta Data]
 [RR: Creating Tool Chain]
-  [RR: Creating tool loader with path [file:/home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/classes/rr/simple/, file:/home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/classes/tools/]]
-  [RR: file:/home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/classes/rr/simple/rrtools.properties]
+  [RR: Creating tool loader with path [file:/home/dan/fasttrack/fastrack-android/fasttrack/classes/rr/simple/, file:/home/dan/fasttrack/fastrack-android/fasttrack/classes/tools/]]
+  [RR: file:/home/dan/fasttrack/fastrack-android/fasttrack/classes/rr/simple/rrtools.properties]
     [RR: [LOG, T, TL, S, P, N, C]]
   [RR: 0.00200 sec]
-  [RR: file:/home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/classes/tools/rrtools.properties]
+  [RR: file:/home/dan/fasttrack/fastrack-android/fasttrack/classes/tools/rrtools.properties]
     [RR: [HB, FT, A, LS, RS, FT_CAS, PL, BE]]
   [RR: 0.00 sec]
+DAN: about to call setTool with toolOption.get() = FT
+CL: toolOption.getCommandLine() didn't return null at RR.java->createTool()
   [RR: Extending States for tools/fasttrack/FastTrackTool]
   [RR: 0.00400 sec]
 DAN: constructing tool: Last
   [RR: Transforming rr/state/ShadowThread]
+ThreadState: Creating ThreadStateClassVisitor for class: rr/state/ShadowThread
   [RR: Adding field epoch to rr/state/ShadowThread (tools/fasttrack/FastTrackTool)]
   [RR: Adding field cv to rr/state/ShadowThread (tools/fasttrack/FastTrackTool)]
 CACHE: writing file: rr/state/ShadowThread to cache.
+Class name (before): rr/state/ShadowThread
+Class name (after): ShadowThread
+CACHE2: writing file (full path name): /home/dan/fasttrack/fastrack-android/fasttrack/test/tmp/ShadowThread.class to cache.
   [RR: done]
+DAN: exiting tool constructor for Last
   [RR: Transforming tools/fasttrack/FastTrackTool]
+ThreadState: Creating WatcheeClassVisitor for class: tools/fasttrack/FastTrackTool
 CACHE: writing file: tools/fasttrack/FastTrackTool to cache.
+Class name (before): tools/fasttrack/FastTrackTool
+Class name (after): FastTrackTool
+CACHE2: writing file (full path name): /home/dan/fasttrack/fastrack-android/fasttrack/test/tmp/FastTrackTool.class to cache.
   [RR: done]
 DAN: constructing tool: tools.fasttrack.FastTrackTool
-  [RR: DAN: calling startUp in RR.java]
+DAN: exiting tool constructor for tools.fasttrack.FastTrackTool
+DAN: about to call setTool on tool tools.fasttrack.FastTrackTool
+  [RR: DAN: calling RR.startUp()]
+  [RR: CL: calling RRMain.java->processArgs() from RR.startUp()]
+  [RR: TOOL: calling createTool() from RR.startUp()]
+  [RR: Creating Tool Chain]
+    [RR: Creating tool loader with path [file:/home/dan/fasttrack/fastrack-android/fasttrack/classes/rr/simple/, file:/home/dan/fasttrack/fastrack-android/fasttrack/classes/tools/]]
+    [RR: file:/home/dan/fasttrack/fastrack-android/fasttrack/classes/rr/simple/rrtools.properties]
+      [RR: [LOG, T, TL, S, P, N, C]]
+    [RR: 0.00 sec]
+    [RR: file:/home/dan/fasttrack/fastrack-android/fasttrack/classes/tools/rrtools.properties]
+      [RR: [HB, FT, A, LS, RS, FT_CAS, PL, BE]]
+    [RR: 0.00 sec]
+DAN: about to call setTool with toolOption.get() = FT
+CL: toolOption.getCommandLine() didn't return null at RR.java->createTool()
+    [RR: Extending States for tools/fasttrack/FastTrackTool]
+    [RR: 0.00100 sec]
+DAN: constructing tool: Last
+DAN: exiting tool constructor for Last
+DAN: constructing tool: tools.fasttrack.FastTrackTool
+DAN: exiting tool constructor for tools.fasttrack.FastTrackTool
+DAN: about to call setTool on tool tools.fasttrack.FastTrackTool
+    [RR:     complete chain: tools.fasttrack.FastTrackTool -> Last]
+    [RR:        enter chain: [Last]]
+    [RR:         exit chain: [Last]]
+    [RR:      acquire chain: [tools.fasttrack.FastTrackTool, Last]]
+    [RR:      release chain: [tools.fasttrack.FastTrackTool, Last]]
+    [RR:       access chain: [tools.fasttrack.FastTrackTool, Last]]
+    [RR: Read Fastpath code found in [tools.fasttrack.FastTrackTool, Last]]
+    [RR: Write Fastpath code found in [tools.fasttrack.FastTrackTool, Last]]
+    [RR: No Tools implement enter/exit hooks.]
+  [RR: 0.00600 sec]
   [RR: Tool Init()]
 DAN: calling init on Tool: tools.fasttrack.FastTrackTool
 DAN: calling init on Tool: Last
@@ -39,7 +81,7 @@ DAN: calling init on Tool: Last
   [RR: Read Fastpath code found in [tools.fasttrack.FastTrackTool, Last]]
   [RR: Write Fastpath code found in [tools.fasttrack.FastTrackTool, Last]]
   [RR: No Tools implement enter/exit hooks.]
-[RR: 0.0390 sec]
+[RR: 0.0480 sec]
 [RR: OPTIONS:]
   [RR: (rr.state.agent.ThreadStateExtensionAgent) javaArgs             = test.Test           ]
   [RR: (rr.state.agent.ThreadStateExtensionAgent) noDecInline          = false               ]
@@ -53,7 +95,7 @@ DAN: calling init on Tool: Last
   [RR: (rr.RRMain)                        args                 = []                  ]
   [RR: (acme.util.Debug)                  d                    = []                  ]
   [RR: (rr.RRMain$4)                      help                 = false               ]
-  [RR: (rr.tool.RR)                       toolpath             = /home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/classes/rr/simple:/home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/classes/tools]
+  [RR: (rr.tool.RR)                       toolpath             = /home/dan/fasttrack/fastrack-android/fasttrack/classes/rr/simple:/home/dan/fasttrack/fastrack-android/fasttrack/classes/tools]
   [RR: (rr.tool.RR)                       classpath            = .                   ]
   [RR: (rr.tool.RR)                       tool                 = FT                  ]
   [RR: (rr.tool.RR)                       tools                = false               ]
@@ -72,7 +114,7 @@ DAN: calling init on Tool: Last
   [RR: (rr.tool.RR)                       noEventReuse         = false               ]
   [RR: (rr.loader.LoaderContext)          repository           =                     ]
   [RR: (rr.meta.MetaDataInfoMaps)         meta                 = null                ]
-  [RR: (rr.meta.InstrumentationFilter)    methods              = ["-.*Barrier.await\(\)V", "-java.util.concurrent.CyclicBarrier.await\(JLjava/util/concurrent/TimeUnit;\)I", "-java.util.concurrent.CyclicBarrier.await\(\)I", "-.*Barrier.DoBarrier\(I\)V", "-.*TournamentBarrier.DoBarrier\(I\)V", default=ACCEPT]]
+  [RR: (rr.meta.InstrumentationFilter)    methods              = ["-.*Barrier.await\(\)V", "-java.util.concurrent.CyclicBarrier.await\(JLjava/util/concurrent/TimeUnit;\)I", "-java.util.concurrent.CyclicBarrier.await\(\)I", "-.*Barrier.DoBarrier\(I\)V", "-.*TournamentBarrier.DoBarrier\(I\)V", "-.*Barrier.await\(\)V", "-java.util.concurrent.CyclicBarrier.await\(JLjava/util/concurrent/TimeUnit;\)I", "-java.util.concurrent.CyclicBarrier.await\(\)I", "-.*Barrier.DoBarrier\(I\)V", "-.*TournamentBarrier.DoBarrier\(I\)V", default=ACCEPT]]
   [RR: (rr.meta.InstrumentationFilter)    fields               = ["-.*this\$.*", default=ACCEPT]]
   [RR: (rr.meta.InstrumentationFilter)    lines                = [default=ACCEPT]    ]
   [RR: (rr.meta.InstrumentationFilter)    classes              = ["-java..*", "-javax..*", "-com.sun..*", "-org.objectweb.asm..*", "-sun..*", "-rr..*", "-rrtools..*", "-acme..*", "-.*__\$rr_.*", default=ACCEPT]]
@@ -94,10 +136,42 @@ DAN: calling init on Tool: Last
   [RR: (rr.state.AbstractArrayStateCache) noArrayLookupOpt     = false               ]
   [RR: (rr.instrument.methods.ThreadDataInstructionAdapter) callSites            = false               ]
   [RR: (rr.error.ErrorMessage)            maxWarn              = 100                 ]
-[RR: 0.0140 sec]
-[RR: Installing DefineClassListener rr.loader.InstrumentingDefineClassLoader@f99ff5]
-[RR: System Class Path = [file:/home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/./]]
-[RR: DAN: calling startUp in RR.java]
+[RR: 0.00900 sec]
+[RR: Size of argv: 2]
+[RR: Installing DefineClassListener rr.loader.InstrumentingDefineClassLoader@74c3aa]
+[RR: System Class Path = [file:/home/dan/fasttrack/fastrack-android/fasttrack/./]]
+[RRMAIN: printing urls array]
+	file:/home/dan/fasttrack/fastrack-android/fasttrack/./
+[RR: DAN: calling RR.startUp()]
+[RR: CL: calling RRMain.java->processArgs() from RR.startUp()]
+[RR: TOOL: calling createTool() from RR.startUp()]
+[RR: Creating Tool Chain]
+  [RR: Creating tool loader with path [file:/home/dan/fasttrack/fastrack-android/fasttrack/classes/rr/simple/, file:/home/dan/fasttrack/fastrack-android/fasttrack/classes/tools/]]
+  [RR: file:/home/dan/fasttrack/fastrack-android/fasttrack/classes/rr/simple/rrtools.properties]
+    [RR: [LOG, T, TL, S, P, N, C]]
+  [RR: 0.00 sec]
+  [RR: file:/home/dan/fasttrack/fastrack-android/fasttrack/classes/tools/rrtools.properties]
+    [RR: [HB, FT, A, LS, RS, FT_CAS, PL, BE]]
+  [RR: 0.00 sec]
+DAN: about to call setTool with toolOption.get() = FT
+CL: toolOption.getCommandLine() didn't return null at RR.java->createTool()
+  [RR: Extending States for tools/fasttrack/FastTrackTool]
+  [RR: 0.00100 sec]
+DAN: constructing tool: Last
+DAN: exiting tool constructor for Last
+DAN: constructing tool: tools.fasttrack.FastTrackTool
+DAN: exiting tool constructor for tools.fasttrack.FastTrackTool
+DAN: about to call setTool on tool tools.fasttrack.FastTrackTool
+  [RR:     complete chain: tools.fasttrack.FastTrackTool -> Last]
+  [RR:        enter chain: [Last]]
+  [RR:         exit chain: [Last]]
+  [RR:      acquire chain: [tools.fasttrack.FastTrackTool, Last]]
+  [RR:      release chain: [tools.fasttrack.FastTrackTool, Last]]
+  [RR:       access chain: [tools.fasttrack.FastTrackTool, Last]]
+  [RR: Read Fastpath code found in [tools.fasttrack.FastTrackTool, Last]]
+  [RR: Write Fastpath code found in [tools.fasttrack.FastTrackTool, Last]]
+  [RR: No Tools implement enter/exit hooks.]
+[RR: 0.00500 sec]
 [RR: Tool Init()]
 DAN: calling init on Tool: tools.fasttrack.FastTrackTool
 DAN: calling init on Tool: Last
@@ -105,187 +179,58 @@ DAN: calling init on Tool: Last
   [RR: DAN: Thread name: main]
 [main: ----- ----- ----- -----       Meep Meep.      ----- ----- ----- -----]
 [main: ]
-CACHE: calling define with name: test/Test
+DAN: callings classes.put with internal name: test/Test
+DAN: type of currentLoader is class rr.loader.LoaderContext
+[IO: writing currentLoader to file for class: test/Test]
+[IO: successfully wrote ClassLoader and LoaderContext to disk.]
 CACHE: calling readFromFileCache on class test/Test
-[main: WInstrumenting test/Test (Loader=0x0191D8C1 (class rr.RRMain$RRMainLoader))]
+[main: WInstrumenting test/Test (Loader=0x01EE4648 (class rr.RRMain$RRMainLoader))]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
+[META: calling visitFieldIns test/Test y I]
+[META: making field access]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
+[META: calling visitFieldIns test/Test y I]
+[META: making field access]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
+[META: calling visitFieldIns java/lang/System out Ljava/io/PrintStream;]
   [main: Replace java/lang/Thread.start()V]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
   [main: Replace java/lang/Thread.start()V]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
   [main: Replace java/lang/Thread.join()V]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
   [main: Replace java/lang/Thread.join()V]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
+[DAN: calling invokeStatic() in RRMethodAdapter.java]
 CACHE: writing file: test/Test to cache.
-DAN: writing file to tmp directory
+Class name (before): test/Test
+Class name (after): Test
+CACHE2: writing file (full path name): /home/dan/fasttrack/fastrack-android/fasttrack/test/tmp/Test.class to cache.
+DAN: writing file to tmp directory.
 [main: DAN: invoking testcase main()]
 [main: Creating Free List With 16 Tids]
 [main: New Thread main with tid=0.]
-CACHE: calling define with name: tools/fasttrack/Epoch
-[DAN: starting up RoadRunner...]
+FT: about to call ts_get_cv in FastTrackTool.java->create()
+DAN: callings classes.put with internal name: tools/fasttrack/Epoch
 [DAN: running main() in Test.java]
 [main: New Thread Thread-0 with tid=1.]
-CACHE: calling readFromFileCache on class __$rr_test_Test__$rr__Update_y
-CACHE: writing file: __$rr_test_Test__$rr__Update_y to cache.
-CACHE: calling define with name: __$rr_test_Test__$rr__Update_y
-CACHE: returning because of synthetic class
+FT: about to call ts_get_cv in FastTrackTool.java->create()
+[getUpdater: getting loader for field: y]
+[IO: reading loaderContext from file.]
 [main: New Thread Thread-1 with tid=2.]
-[RR Waiter for 1: Stopping]
-[RR Waiter for 2: Stopping]
-Is it 200? 200
-[DAN: shutting down RoadRunner...]
-[DAN: ending application. I hope I see this...]
-[main: DAN: returned from invoking testcase main()]
-[main: ]
-[main: ----- ----- ----- -----      Thpthpthpth.     ----- ----- ----- -----]
-  [RR: DAN: finished call to runTargetMain()]
-  [RR: DAN: done waiting for all threads]
-[RR: 0.457 sec]
-[RR: DAN: returned from runNormally()]
-[RR: DAN: about to shut down RR]
-[RR: Total Time: 456]
-[RR: Tool Fini()]
-CACHE: calling define with name: javax/management/NotificationEmitter
-CACHE: calling define with name: javax/management/NotificationBroadcaster
-CACHE: calling define with name: com/sun/management/GarbageCollectorMXBean
-<entry>
-  <data> Thu Mar 29 02:24:01 EDT 2012 </data> 
-  <mode> FAST </mode> 
-  <timeout> NO </timeout> 
-  <options>
-    <option><name> javaArgs </name>           <value> test.Test  </value> </option>
-    <option><name> noDecInline </name>        <value> false </value> </option>
-    <option><name> noinst </name>             <value> false </value> </option>
-    <option><name> inst </name>               <value> INST </value> </option>
-    <option><name> infThreads </name>         <value> 0 </value>  </option>
-    <option><name> quiet </name>              <value> false </value> </option>
-    <option><name> logs </name>               <value> log </value> </option>
-    <option><name> out </name>                <value>  </value>   </option>
-    <option><name> err </name>                <value>  </value>   </option>
-    <option><name> args </name>               <value> [] </value> </option>
-    <option><name> d </name>                  <value> [] </value> </option>
-    <option><name> help </name>               <value> false </value> </option>
-    <option><name> toolpath </name>           <value> /home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/classes/rr/simple:/home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/classes/tools </value> </option>
-    <option><name> classpath </name>          <value> . </value>  </option>
-    <option><name> tool </name>               <value> FT </value> </option>
-    <option><name> tools </name>              <value> false </value> </option>
-    <option><name> noxml </name>              <value> false </value> </option>
-    <option><name> constantGC </name>         <value> false </value> </option>
-    <option><name> noFP </name>               <value> false </value> </option>
-    <option><name> noEnter </name>            <value> true </value> </option>
-    <option><name> xml </name>                <value> log.xml </value> </option>
-    <option><name> pulse </name>              <value>  </value>   </option>
-    <option><name> maxTime </name>            <value> 0 </value>  </option>
-    <option><name> maxMem </name>             <value> 10240 </value> </option>
-    <option><name> maxTid </name>             <value> 16 </value> </option>
-    <option><name> stacks </name>             <value> false </value> </option>
-    <option><name> values </name>             <value> false </value> </option>
-    <option><name> noTidGC </name>            <value> false </value> </option>
-    <option><name> noEventReuse </name>       <value> false </value> </option>
-    <option><name> repository </name>         <value>  </value>   </option>
-    <option><name> meta </name>               <value> null </value> </option>
-    <option><name> methods </name>            <value> ["-.*Barrier.await\(\)V", "-java.util.concurrent.CyclicBarrier.await\(JLjava/util/concurrent/TimeUnit;\)I", "-java.util.concurrent.CyclicBarrier.await\(\)I", "-.*Barrier.DoBarrier\(I\)V", "-.*TournamentBarrier.DoBarrier\(I\)V", default=ACCEPT] </value> </option>
-    <option><name> fields </name>             <value> ["-.*this\$.*", default=ACCEPT] </value> </option>
-    <option><name> lines </name>              <value> [default=ACCEPT] </value> </option>
-    <option><name> classes </name>            <value> ["-java..*", "-javax..*", "-com.sun..*", "-org.objectweb.asm..*", "-sun..*", "-rr..*", "-rrtools..*", "-acme..*", "-.*__\$rr_.*", default=ACCEPT] </value> </option>
-    <option><name> shadowThread </name>       <value> ["-.*main\(\[Ljava/lang/String;\)V.*", "-.*run\(\)V.*", "+.*\$rr__Original.*", "-.*\$rr.*", "-.*\&lt;init\&gt;.*", "-.*\&lt;clinit\&gt;.*", default=ACCEPT] </value> </option>
-    <option><name> noop </name>               <value> [default=ACCEPT] </value> </option>
-    <option><name> noConstructor </name>      <value> false </value> </option>
-    <option><name> noClone </name>            <value> false </value> </option>
-    <option><name> dump </name>               <value>  </value>   </option>
-    <option><name> field </name>              <value> FINE </value> </option>
-    <option><name> fancy </name>              <value> false </value> </option>
-    <option><name> arraySites </name>         <value> false </value> </option>
-    <option><name> Use TestAcquires </name>   <value> false </value> </option>
-    <option><name> nojoin </name>             <value> false </value> </option>
-    <option><name> multiLoader </name>        <value> false </value> </option>
-    <option><name> indices </name>            <value> 2147483647 </value> </option>
-    <option><name> updaters </name>           <value> SAFE </value> </option>
-    <option><name> array </name>              <value> NONE </value> </option>
-    <option><name> nobarrier </name>          <value> false </value> </option>
-    <option><name> noArrayLookupOpt </name>   <value> false </value> </option>
-    <option><name> callSites </name>          <value> false </value> </option>
-    <option><name> maxWarn </name>            <value> 100 </value> </option>
-    <option><name> sanity </name>             <value> false </value> </option>
-    <option><name> noInterrupt </name>        <value> false </value> </option>
-  </options>
-  <system>
-    <host> dan-ThinkPad-T420 </host> 
-    <name> java.vm.version </name>     <value> 20.1-b02 </value> 
-    <name> java.vm.vendor </name>      <value> Sun Microsystems Inc. </value> 
-    <name> java.vm.name </name>        <value> Java HotSpot(TM) Server VM </value> 
-    <name> java.class.path </name>     <value> .:/home/dan/fasttrack/stephenfreund-RoadRunner-20b650b/build/jar/rragent.jar </value> 
-    <name> os.name </name>             <value> Linux </value> 
-    <name> os.arch </name>             <value> i386 </value> 
-    <name> os.version </name>          <value> 3.0.0-16-generic-pae </value> 
-    <name> user.name </name>           <value> dan </value> 
-    <name> user.dir </name>            <value> /home/dan/fasttrack/stephenfreund-RoadRunner-20b650b </value> 
-    <memPeak> 75 </memPeak> 
-    <memUsed> 70 </memUsed> 
-    <memMax> 1029 </memMax> 
-    <compileTime> 381 </compileTime> 
-    <gc> <name> PS Scavenge </name> <time> 0 </time> </gc>
-    <gc> <name> PS MarkSweep </name> <time> 0 </time> </gc>
-  </system>
-  <instrumented> test/Test  </instrumented> 
-  <instrumentedNum> 1 </instrumentedNum> 
-  <skipped>  </skipped> 
-  <skippedNum> 0 </skippedNum> 
-  <sanityChecked>  </sanityChecked> 
-  <sanityCheckedNum> 0 </sanityCheckedNum> 
-  <counters>
-
-    <counter><name> "ArrayStateFactory: Size" </name>                    <value> 0 </value> </counter>
-    <counter><name> "ArrayStateFactory: Attic Move Time" </name>         <value> <total>0.00000</total> <count>0</count>  </value> </counter>
-    <counter><name> "ArrayStateFactory: Attic Hits" </name>              <value> 0 </value> </counter>
-
-    <counter><name> "CV: Count" </name>                                  <value> 0 </value> </counter>
-    <counter><name> "CV: Ops" </name>                                    <value> 0 </value> </counter>
-
-    <counter><name> "Clone: Count" </name>                               <value> 0 </value> </counter>
-
-    <counter><name> "Handler: Count" </name>                             <value> 0 </value> </counter>
-
-    <counter><name> "ShadowLock: objects" </name>                        <value> 0 </value> </counter>
-
-    <counter><name> "ShadowThread: Count" </name>                        <value> 3 </value> </counter>
-    <counter><name> "ShadowThread: Max Live" </name>                     <value> 2 </value> </counter>
-    <counter><name> "ShadowThread: getCurrentThread() calls" </name>     <value> 0 </value> </counter>
-
-    <counter><name> "ShadowVolatile: objects" </name>                    <value> 0 </value> </counter>
-
-    <counter><name> "Time: Instrumenter" </name>                         <value> <total>28.0000</total> <count>1</count> <ave>28.0000</ave> </value> </counter>
-  </counters>
-  <tool>
-    <name> tools.fasttrack.FastTrackTool </name> 
-    <thread> [tid=1    cv=[00000001 01000003 00000000 00000000]   epoch=(1:3)] </thread> 
-    <thread> [tid=0    cv=[00000003 01000003 02000003 00000000]   epoch=(0:3)] </thread> 
-    <thread> [tid=2    cv=[00000002 00000000 02000003 00000000]   epoch=(2:3)] </thread> 
-  </tool>
-  <tool>
-    <name> Last </name> 
-  </tool>
-  <threadCount> 3 </threadCount> 
-  <errorTotal> 3 </errorTotal> 
-  <distinctErrorTotal> 1 </distinctErrorTotal> 
-  <methods>
-  </methods>
-  <fields>
-    <field>
-      <name> test/Test.y I </name> 
-      <error> <name> FastTrack </name> <count> 3 </count> </error>
-    </field>
-  </fields>
-  <arrays>
-  </arrays>
-  <locks>
-  </locks>
-  <fieldAccesses>
-  </fieldAccesses>
-  <errorCountPerErrorType>
-    <errorType> <name> FastTrack </name> <count> 3 </count> </errorType>
-  </errorCountPerErrorType>
-  <warningsTotal> 0 </warningsTotal> 
-  <yikesTotal> 0 </yikesTotal> 
-  <failed> false </failed> 
-  <time> 456 </time> 
-</entry>
-[RR: Time = 456]
-[RR: DAN: finished shutting down RR]
-[RR: Exiting: 0]
+FT: about to call ts_get_cv in FastTrackTool.java->create()
+[getUpdater: getting loader for field: y]
+[ERROR: failed reading LoaderContext from file!]
+[ERROR: exception message: rr.RRMain$RRMainLoader; rr.RRMain$RRMainLoader; no valid constructor
+[ERROR: exception string: java.io.InvalidClassException: rr.RRMain$RRMainLoader; rr.RRMain$RRMainLoader; no valid constructor

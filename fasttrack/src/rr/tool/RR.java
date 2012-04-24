@@ -38,6 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package rr.tool;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -84,22 +85,7 @@ import acme.util.time.TimedStmt;
 public class RR {
    
     public static boolean isStarted = false;
-    public static final class JasonClass extends URLClassLoader {
-		private JasonClass(URL[] urls, ClassLoader parent) {
-			super(urls, parent);
-		}
-
-		@Override
-		public String toString() {
-			return "JasonClass";
-		}
-
-		@Override
-		public Class<?> findClass(String name) throws ClassNotFoundException {
-			return super.findClass(name);
-		}
-	}
-	public static JasonClass loader;
+    
     public static final CommandLineOption<String> toolPathOption = CommandLine.makeString("toolpath", Util.getenv("RR_TOOLPATH",""), CommandLineOption.Kind.STABLE, "The class path used to find RoadRunner tools specified.");
 	public static final CommandLineOption<String> classPathOption = CommandLine.makeString("classpath", ".", CommandLineOption.Kind.STABLE, "The class path used to load classes from the target program.");
 
@@ -158,6 +144,8 @@ public class RR {
 	private static boolean shuttingDown = false;
 	private static boolean timeOut = false;
 
+    private static boolean toolChainCreated = false;
+
 	private static long startTime;
 	private static long endTime;
 
@@ -189,7 +177,16 @@ public class RR {
 	}
 
 	private static void createTool() { 
-		try {
+
+        if(toolChainCreated) {
+            Util.logf("Tool chain already created. Exiting createTool()");
+            return;
+        }
+        else {
+            toolChainCreated = true;
+        }
+
+        try {
 			Util.log(new TimedStmt("Creating Tool Chain") {
 
 				protected Tool createChain(String methodName) {
@@ -200,8 +197,13 @@ public class RR {
 				
 				@Override
 				public void run() throws Exception {
-					final URL[] urls = URLUtils.getURLArrayFromString(System.getProperty("user.dir"), toolPathOption.get());
-					Util.logf("Creating tool loader with path %s", java.util.Arrays.toString(urls));
+					//final URL[] urls = URLUtils.getURLArrayFromString(System.getProperty("user.dir"), toolPathOption.get());
+					// XXX: manually creating the urls array since getProperty works differently on Android
+                    URL simpleURL = new URL("file:/simple");
+                    URL ftURL = new URL("file:/ft");
+                    final URL[] urls = new URL[] { simpleURL, ftURL };
+
+                    Util.logf("Creating tool loader with path %s", java.util.Arrays.toString(urls));
 					toolLoader = new ToolLoader(urls);
 
                     System.out.println("DAN: about to call setTool with toolOption.get() = " + toolOption.get());
@@ -267,15 +269,6 @@ public class RR {
         RRMain.processArgs(myArgv); 
         
         String urls = RR.classPathOption.get();
-		loader = new JasonClass(URLUtils.getURLArrayFromString(System.getProperty("user.dir"), urls), RR.class.getClassLoader());
-        String className = "test.Test";
-        try{
-            //loader.findClass(className);
-            //loader.findClass("tools/fasttrack/Epoch");
-        } catch(Exception e){
-            Util.log("JASON FAIL findclass");
-        }
-
 
         Util.log("TOOL: calling createTool() from RR.startUp()");
         createTool();
@@ -302,8 +295,8 @@ public class RR {
 			endTimer(); // call here in case the target didn't exit cleanly
 		}
 
-		Util.logf("Total Time: %d", (endTime - startTime));
-		Util.log("Tool Fini()");
+		//Util.logf("Total Time: %d", (endTime - startTime));
+		Util.log("FastTrack shutting down.");
 		applyToTools(new ToolVisitor() {
 			public void apply(Tool t) {
 				t.fini();
@@ -364,7 +357,22 @@ public class RR {
 	@SuppressWarnings("unused")
 	private static char rainyDayFund[] = new char[1024 * 1024];
 	private static volatile boolean inXml = false;
-	private static void xml() {
+	
+    
+    private static void xml() {
+
+        applyToTools(new ToolVisitor() {
+			public void apply(Tool t) {
+                if(t.toString().equals("tools.fasttrack.FastTrackTool")) {
+                    Util.log("FastTrack: ");
+                    t.printXML(null);
+                }
+			}
+		});
+    }
+    
+    /* XXX: xml function for natively running FT
+    private static void xml() {
 		if (inXml) return;
 		inXml = true;
 		rainyDayFund = null;
@@ -372,8 +380,8 @@ public class RR {
 		StringWriter sOut = new StringWriter();
 		Writer outputWriter = noxmlOption.get() ? Util.openLogFile(xmlFileOption.get()) :
 			new SplitOutputWriter(sOut, Util.openLogFile((xmlFileOption.get())));
-		PrintWriter stringOut = new PrintWriter(outputWriter);
-
+        PrintWriter stringOut = new PrintWriter(sOut);
+        
 		final XMLWriter xml = new XMLWriter(stringOut);
 
 
@@ -393,8 +401,8 @@ public class RR {
 			public void apply(Tool t) {
 				xml.push("tool");
 				xml.print("name", t.toString());
-				t.printXML(xml);
-				xml.pop();			
+                
+                xml.pop();			
 			}
 		});
 
@@ -418,7 +426,7 @@ public class RR {
 
 		Util.printf("%s", sOut.toString());
 	}
-
+    */
 
 	public static void timeOut() {
 		if (!shuttingDown) {

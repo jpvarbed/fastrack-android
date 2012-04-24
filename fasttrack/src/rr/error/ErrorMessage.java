@@ -138,6 +138,7 @@ public class ErrorMessage<T extends MetaDataInfo> {
 		</pre>
 	 */
 	public synchronized void error(ShadowThread cur, T t, Object... extraData) {
+        System.out.println("ERROR: $$$$$$$$$$$$$$$$$$$$$");
 		try {
 			if (stillLooking(t)) {			
 				StringWriter sw = new StringWriter();

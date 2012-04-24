@@ -43,10 +43,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	<property name="build.dir" location="${rr.basedir}/build" />
 	<property name="auto.dir" location="${rr.basedir}/auto" />
 	<property name="classes.dir" location="${rr.basedir}/classes" />
-	<property name="docs.dir" location="${rr.basedir}/docs" />
+    <property name="docs.dir" location="${rr.basedir}/docs" />
 	<property name="log.dir" location="${rr.basedir}/log" />
+    <property name="dump.dir" location="${rr.basedir}/dump" />
 
-	<property name="jar.dir" location="${build.dir}/jar" />
+    <property name="jar.dir" location="${build.dir}/jars" />
 	<property name="bin.dir" location="${build.dir}/bin" />
 
 
@@ -55,14 +56,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	<property name="cup.jar" value="${rr.basedir}/jars/java-cup-11a.jar" />
     <property name="jflex.jar" value="${rr.basedir}/jars/JFlex.jar" />
     <property name="android.jar" value="${rr.basedir}/jars/android.jar" />
-	<property name="rr.vmargs" value="-javaagent:${jar.dir}/rragent.jar $$JVM_ARGS" />
+    <property name="dump.jar" value="${rr.basedir}/jars/dump.jar" />
+    <property name="rr.vmargs" value="-javaagent:${jar.dir}/rragent.jar $$JVM_ARGS" />
 
 	<property name="rr.main" value="rr.RRMain" />
 	<property name="run-script" value="rrrun" />
 
 	<path id="rr.classpath">
 		<pathelement location="${classes.dir}" />
-		<pathelement location="${cup.jar}" />
+        <pathelement location="${cup.jar}" />
+        <!-- <pathelement location="${android.jar}" /> -->
+        <!-- <pathelement location="${dump.jar}" /> --> 
 	</path>
 
 	<path id="rr.classpath.jar">
@@ -78,7 +82,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	<target name="clean">
 		<delete dir="${build.dir}" />
 		<delete dir="${auto.dir}" />
-		<delete dir="${classes.dir}" />
+        <delete dir="${classes.dir}" /> 
 		<delete dir="${docs.dir}" />
 		<delete dir="${log.dir}" />
 	</target>

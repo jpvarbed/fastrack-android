@@ -109,28 +109,41 @@ public class RREventGenerator extends RR {
 
 	protected static FieldAccessEvent prepAccessEvent(Object target, ShadowVar gs, int fadId, ShadowThread td, boolean isWrite) {
 
-        System.out.println("Calling prepAccessEvent on var: " + td.toString());
+        //System.out.println("Calling prepAccessEvent on var: " + td.toString());
 
         MetaDataAllocator<FieldAccessInfo> tempMDA = MetaDataInfoMaps.getFieldAccesses();
         if(tempMDA == null) {
-            System.out.println("ERROR: tempMDA is null!");
+            System.out.println("[ERROR: tempMDA is null!]");
         }
-        System.out.println("META: size of tempMDA is: " + tempMDA.size());
+        //System.out.println("META: size of tempMDA is: " + tempMDA.size());
         FieldAccessInfo tempFAD = tempMDA.get(fadId);
         if(tempFAD == null) {
-            System.out.println("ERROR: tempFAD is null!");
+            System.out.println("[ERROR: tempFAD is null!]");
         }
 
         FieldAccessInfo fad = MetaDataInfoMaps.getFieldAccesses().get(fadId);
         if(fad == null) {
-            System.out.println("ERROR: fad is null!");
+            System.out.println("[ERROR: fad is null!]");
         }
 
         AbstractFieldUpdater updater;
 
+        
 		// must be done first!  because loading updater could trigget other accesses,
 		// which will write over fields of fae.  Bitter...
-		updater = fad.getField().getUpdater();  
+
+        FieldInfo fi = fad.getField();
+		if(fi == null) {
+            System.out.println("[ERROR: FieldInfo is null!]");
+        }
+       
+        // Original good code
+         
+        updater = fi.getUpdater();  
+        if(updater == null) {
+            System.out.println("[ERROR: updater is null in prepAccessEvent!]");
+        }
+
 
 		FieldAccessEvent fae = td.getFieldAccessEvent();
 		fae.setTarget(target);
@@ -146,7 +159,32 @@ public class RREventGenerator extends RR {
 				Assert.assertTrue(gs != null, "concurrent updates to new var state not resolved properly");
 			}
 		}
+        
 
+        /* Shitty bad but working code */
+         /*
+        //updater = fi.getUpdater();  
+        //if(updater == null) {
+        //    System.out.println("[ERROR: updater is null in prepAccessEvent!]");
+        //}
+
+
+		FieldAccessEvent fae = td.getFieldAccessEvent();
+		fae.setTarget(target);
+		fae.setInfo(fad);
+		//fae.setUpdater(updater);
+		fae.setWrite(isWrite);
+		if (gs == null) {
+			fae.putOriginalShadow(null);
+			gs = getTool().makeShadowVar(fae);
+			Assert.assertTrue(fae.getAccessInfo() == fad);
+	        //fae.putShadow(gs);
+            //if (!fae.putShadow(gs)) {
+			//	gs = updater.getState(target);
+			//	Assert.assertTrue(gs != null, "concurrent updates to new var state not resolved properly");
+			//}
+		}
+        */
 		fae.putOriginalShadow(gs);
 		return fae;
 	}	
@@ -163,7 +201,6 @@ public class RREventGenerator extends RR {
 	}
 
 	public static void writeAccess(Object target, ShadowVar gs, int fadId, ShadowThread td) {
-        System.out.println("[META: writing access event.]");
 		try {
 			FieldAccessEvent ae = prepAccessEvent(target, gs, fadId, td, true);
 			firstAccess.access(ae);
