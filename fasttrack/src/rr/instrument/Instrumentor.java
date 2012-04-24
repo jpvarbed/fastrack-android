@@ -73,12 +73,15 @@ import acme.util.option.CommandLineOption;
 import acme.util.option.Option;
 
 public class Instrumentor {
+    
+    private static final long serialVersionUID = 4L;
 
 	public static final CommandLineOption<String> dumpClassOption  = 
 		CommandLine.makeString("dump", "", CommandLineOption.Kind.STABLE, "Specifies to directory to which all metadata and instrumented class files should be dumped.  Empty string turns off dumping.", new Runnable() {
 			public void run() {
 				new File(dumpClassOption.get()).mkdirs();
 			}
+            
 		});
 
 	public static enum FieldMode { FINE, COARSE };

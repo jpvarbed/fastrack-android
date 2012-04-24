@@ -881,6 +881,19 @@ class java/util/HashMap$Entry extends java/lang/Object implements [java/util/Map
         recordRemoval (Ljava/util/HashMap;)V:
 }
 
+class rr/instrument/classes/InterruptFixer extends rr/instrument/classes/RRClassAdapter implements [org/objectweb/asm/Opcodes] {
+    final static Lacme/util/option/CommandLineOption; noInterruptOption;
+    final static Ljava/util/List; types;
+    static Lacme/util/count/Counter; handlerCount;
+        <init> (Lorg/objectweb/asm/ClassVisitor;)V:
+        visitMethod (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)Lorg/objectweb/asm/MethodVisitor;:
+    synthetic static     __$rr_handleException (Ljava/lang/Throwable;)V:
+    synthetic static     __$rr_handleIsInterrupted (Ljava/lang/Thread;)Z:
+    synthetic static     __$rr_handleInterrupted ()Z:
+    static     access$000 ()Ljava/util/List;:
+    static     <clinit> ()V:
+}
+
 class rr/meta/OperationInfo extends rr/meta/MetaDataInfo {
     final Ljava/lang/String; kind;
     final Lrr/meta/MethodInfo; enclosing;
@@ -1307,6 +1320,8 @@ interface java/lang/Comparable {
         compareTo (Ljava/lang/Object;)I:
 }
 
+fresh rr/instrument/classes/RRClassAdapter
+
 interface java/io/ObjectInputValidation {
         validateObject ()V:
 }
@@ -1673,6 +1688,8 @@ instrumented class test/Test extends java/lang/Thread {
     instrumented     <init> ()V:
     instrumented threadStateOk     inc ()V:
     instrumented     run ()V:
+    instrumented threadStateOk     startTest ()V:
+    instrumented threadStateOk     printSuper ()V:
     instrumented static     main ([Ljava/lang/String;)V:
     instrumented synthetic static     __$rr_put_y (IILrr/state/ShadowThread;)V:
     instrumented synthetic static     __$rr_get_y (ILrr/state/ShadowThread;)I:
@@ -1683,13 +1700,18 @@ instrumented class test/Test extends java/lang/Thread {
     instrumented synthetic     __$rr_inc__$rr__with_ThreadState_ (Lrr/state/ShadowThread;)V:
     instrumented threadStateOk synthetic     __$rr_run__$rr__Original_ ()V:
     instrumented threadStateOk synthetic     __$rr___$rr_run__$rr__Original___$rr__with_ThreadState_ (Lrr/state/ShadowThread;)V:
+    instrumented threadStateOk synthetic     __$rr_startTest__$rr__Original_ ()V:
+    instrumented threadStateOk synthetic     __$rr___$rr_startTest__$rr__Original___$rr__with_ThreadState_ (Lrr/state/ShadowThread;)V:
+            instrumented start@test/Test.java:66
+            instrumented start@test/Test.java:67
+            instrumented join@test/Test.java:68
+            instrumented join@test/Test.java:69
+    instrumented synthetic     __$rr_startTest__$rr__with_ThreadState_ (Lrr/state/ShadowThread;)V:
+    instrumented threadStateOk synthetic     __$rr_printSuper__$rr__Original_ ()V:
+    instrumented threadStateOk synthetic     __$rr___$rr_printSuper__$rr__Original___$rr__with_ThreadState_ (Lrr/state/ShadowThread;)V:
+    instrumented synthetic     __$rr_printSuper__$rr__with_ThreadState_ (Lrr/state/ShadowThread;)V:
     instrumented threadStateOk synthetic static     __$rr_main__$rr__Original_ ([Ljava/lang/String;)V:
     instrumented threadStateOk synthetic static     __$rr___$rr_main__$rr__Original___$rr__with_ThreadState_ ([Ljava/lang/String;Lrr/state/ShadowThread;)V:
-            instrumented start@test/Test.java:69
-            instrumented start@test/Test.java:70
-            instrumented join@test/Test.java:71
-            instrumented join@test/Test.java:72
-            instrumented rd_test/Test.y I@test/Test.java:73
 }
 
 class acme/util/io/XMLWriter extends java/lang/Object {
@@ -7181,6 +7203,8 @@ class java/nio/charset/spi/CharsetProvider extends java/lang/Object {
         charsets ()Ljava/util/Iterator;:
         charsetForName (Ljava/lang/String;)Ljava/nio/charset/Charset;:
 }
+
+fresh org/objectweb/asm/Opcodes
 
 interface java/util/concurrent/locks/Condition {
         await ()V:

@@ -77,7 +77,7 @@ public class ThreadStateExtensionAgent {
 		System.out.println("[premain: Installling RoadRunner Agent...]");
 		System.out.println("[premain: agentArgs: " + agentArgs);
        
-//        inst.addTransformer(trans);
+        //inst.addTransformer(trans);
 
         RRMain.runNatively = true;
 
@@ -86,8 +86,6 @@ public class ThreadStateExtensionAgent {
 
 	public synchronized static void addInstrumenter(InstrumentationMode mode) {
 		
-        System.out.println("******");
-        
         DefineClassListener hook = null; 
 		switch (mode) {
 			case INST: hook = new InstrumentingDefineClassLoader(); break;
@@ -95,7 +93,7 @@ public class ThreadStateExtensionAgent {
 			case REP: hook = new RepositoryBuildingDefineClassLoader(); break; 
 		}
 		Util.log("Installing DefineClassListener " + hook);
-//		trans.setDefineClassHook(hook);
+		//trans.setDefineClassHook(hook);
 	}
 
 
@@ -107,8 +105,6 @@ public class ThreadStateExtensionAgent {
 
 			super(cv);
 			this.owner = owner;
-		
-            System.out.println("******");
         }
 
 		@Override
@@ -116,10 +112,9 @@ public class ThreadStateExtensionAgent {
 				String signature, String[] exceptions) {
 			if (name.startsWith(FIELD_ACCESSOR_NAME_PREFIX)) {
 				ThreadStateFieldExtension f = new ThreadStateFieldExtension(owner, "rr/state/ShadowThread", name.substring(7), Type.getReturnType(desc).getDescriptor());
-//				trans.addField(f);
+				//trans.addField(f);
 			}
 		
-            System.out.println("******");
             return super.visitMethod(access, name, desc, signature, exceptions);
 		}
 
@@ -131,8 +126,7 @@ public class ThreadStateExtensionAgent {
 			Util.log("Skipping ShadowThread extension for " + name);
 			return;
 		}
-        System.out.println("******");
-//		trans.addToolClassToWatchList(name);
+		//trans.addToolClassToWatchList(name);
 		try {
 			Util.log(new TimedStmt("Extending States for " + name) {
 				@Override

@@ -358,7 +358,7 @@ public class RR {
 	private static char rainyDayFund[] = new char[1024 * 1024];
 	private static volatile boolean inXml = false;
 	
-    
+     
     private static void xml() {
 
         applyToTools(new ToolVisitor() {
@@ -371,7 +371,8 @@ public class RR {
 		});
     }
     
-    /* XXX: xml function for natively running FT
+    /*
+    // XXX: xml function for natively running FT
     private static void xml() {
 		if (inXml) return;
 		inXml = true;
@@ -401,7 +402,7 @@ public class RR {
 			public void apply(Tool t) {
 				xml.push("tool");
 				xml.print("name", t.toString());
-                
+                t.printXML(xml); 
                 xml.pop();			
 			}
 		});

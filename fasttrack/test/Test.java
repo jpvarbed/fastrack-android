@@ -38,13 +38,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package test;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 //import rr.state.ShadowThread;
 //import rr.tool;
 //import rr.tool.RR;
 
 public class Test extends Thread{
 
-    static final int ITERS = 100;
+    static final int ITERS = 100000;
 
 	static int y;
 
@@ -77,6 +80,9 @@ public class Test extends Thread{
 
     public static void main(String[] args) {
 
+        Date date = new Date();
+        System.out.println("Start time: " + new Timestamp(date.getTime()));
+
         Test t = new Test();
         t.printSuper();
 
@@ -85,6 +91,9 @@ public class Test extends Thread{
         } catch (Exception e) {
             System.out.println("Failure!");
         }
+
+        date = new Date();
+        System.out.println("End time: " + new Timestamp(date.getTime()));
     }
 
 }

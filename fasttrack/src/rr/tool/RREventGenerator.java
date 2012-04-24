@@ -128,10 +128,10 @@ public class RREventGenerator extends RR {
 
         AbstractFieldUpdater updater;
 
-        
+        /* 
 		// must be done first!  because loading updater could trigget other accesses,
 		// which will write over fields of fae.  Bitter...
-
+        
         FieldInfo fi = fad.getField();
 		if(fi == null) {
             System.out.println("[ERROR: FieldInfo is null!]");
@@ -159,10 +159,10 @@ public class RREventGenerator extends RR {
 				Assert.assertTrue(gs != null, "concurrent updates to new var state not resolved properly");
 			}
 		}
-        
-
+                
+        */
         /* Shitty bad but working code */
-         /*
+         
         //updater = fi.getUpdater();  
         //if(updater == null) {
         //    System.out.println("[ERROR: updater is null in prepAccessEvent!]");
@@ -184,7 +184,7 @@ public class RREventGenerator extends RR {
 			//	Assert.assertTrue(gs != null, "concurrent updates to new var state not resolved properly");
 			//}
 		}
-        */
+        
 		fae.putOriginalShadow(gs);
 		return fae;
 	}	

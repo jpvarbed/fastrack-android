@@ -9,7 +9,7 @@ mkdir classes/test
 #mkdir classes/updaters
 cp test/tmp/Test.class classes/test/
 cp test/tmp/ShadowThread.class classes/rr/state/
-#cp test/tmp/FastTrackTool.class classes/tools/fasttrack
+cp test/tmp/FastTrackTool.class classes/tools/fasttrack
 #cp test/__\$rr_test_Test__\$rr__Update_y.class classes/updaters 
 #cp test/__\$rr_test_Test__\$rr__Update_y.class classes
 export RR_META_DATA=`pwd`/dump
