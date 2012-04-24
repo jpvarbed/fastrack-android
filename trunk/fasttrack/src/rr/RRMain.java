@@ -209,7 +209,7 @@ public class RRMain {
 		cl.add(rr.tool.RR.printToolsOption); 
 
 		//cl.add(rr.loader.LoaderContext.repositoryPathOption);
-/*
+
 		cl.addGroup("Instrumentor");
 		cl.add(noInstrumentOption); 
 		cl.add(instrumentOption); 
@@ -230,7 +230,7 @@ public class RRMain {
 		cl.add(Instrumentor.trackArraySitesOption);
 		//cl.add(ThreadStateExtensionAgent.noDecorationInline);
 		//cl.addOrderConstraint(ThreadStateExtensionAgent.noDecorationInline, rr.tool.RR.toolOption);
-*/
+
 
 		cl.addGroup("Monitor");
 		cl.add(rr.tool.RR.xmlFileOption);
@@ -244,12 +244,12 @@ public class RRMain {
 		cl.add(rr.tool.RR.forceGCOption);
 		cl.add(Updaters.updateOptions);
 		cl.add(ArrayStateFactory.arrayOption);
-		//cl.add(Instrumentor.fieldOption);
+		cl.add(Instrumentor.fieldOption);
 		cl.add(rr.barrier.BarrierMonitor.noBarrier);
 		cl.add(RR.noEventReuseOption);
 		cl.add(AbstractArrayStateCache.noOptimizedArrayLookupOption);
 		cl.add(infinitelyRunningThreadsOption);
-		cl.add(rr.instrument.methods.ThreadDataInstructionAdapter.callSitesOption);
+		//cl.add(rr.instrument.methods.ThreadDataInstructionAdapter.callSitesOption);
 
 		cl.addGroup("Limits");
 		cl.add(rr.tool.RR.timeOutOption);

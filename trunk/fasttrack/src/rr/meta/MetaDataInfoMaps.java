@@ -86,6 +86,9 @@ public class MetaDataInfoMaps {
 		return Util.log(new TimedExpr<MetaDataAllocator<T>>("Loading " + name + "...") {
 			@Override
 			public MetaDataAllocator<T> run() throws Exception {
+                if(name.equals("rr.instrument.Instrumentor$3")) {
+                    return null;
+                }
 				return (MetaDataAllocator<T>)in.readObject();
 			}
 		});
