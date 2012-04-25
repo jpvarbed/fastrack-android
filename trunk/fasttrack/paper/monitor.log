@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.5)  25 APR 2012 03:26
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.5)  25 APR 2012 04:03
 entering extended mode
  %&-line parsing enabled.
 **monitor.tex
@@ -427,9 +427,9 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.128 
-       [3 <./instrumentatin_new.png (PNG copy)> <./full_trace_new.png (PNG copy
-)>]
+l.126 \section{Implementation}
+                               [3 <./instrumentatin_new.png (PNG copy)> <./full
+_trace_new.png (PNG copy)>]
 LaTeX Font Info:    Try loading font information for T1+aett on input line 139.
 
  (/usr/share/texmf-texlive/tex/latex/ae/t1aett.fd
@@ -444,12 +444,12 @@ l.160
 {page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.48 
+l.43 
       [5])pdfTeX warning (ext4): destination with the same identifier (name{pag
 e.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.189 \end{document}
+l.186 \end{document}
                      [6
 
 ] (./monitor.aux) ) 
@@ -470,7 +470,7 @@ nts/cm/cmti9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt8
 .pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/
 texmf-texlive/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-texlive/fon
 ts/type1/urw/times/utmb8a.pfb>
-Output written on monitor.pdf (6 pages, 301961 bytes).
+Output written on monitor.pdf (6 pages, 302190 bytes).
 PDF statistics:
  184 PDF objects out of 1000 (max. 8388607)
  38 named destinations out of 1000 (max. 500000)
