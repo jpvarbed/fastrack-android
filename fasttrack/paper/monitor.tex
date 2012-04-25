@@ -2,6 +2,9 @@
 \usepackage[hyphens]{url}
 \usepackage{hyperref}
 \usepackage{dblfloatfix}
+\usepackage{fancyvrb}
+\DefineVerbatimEnvironment{code}{Verbatim}{fontsize=\small}
+\DefineVerbatimEnvironment{example}{Verbatim}{fontsize=\small}
 \begin{document}
 
 \title{Applying Desktop Race Detector Techniques to Mobile Systems}
@@ -71,54 +74,95 @@ RoadRunner provides an abstract class, Tool, that allows different types of prog
 RoadRunner uses the ASM \cite{Bruneton02} library to instrument Java classes at load time from a compiled Java .class file. A shadow variable is created for each static member of the class, as well as getter and putter functions to access the variable. \emph{ShadowThread} objects and function calls are inserted to the class to keep track of variable accesses between threads. An example instrumented class is below in Figure \ref{instrumentation}.
   \begin{figure}[h]
     \centering
-    \begin{minipage} [h] {7.5cm}
-      \includegraphics[scale=.9]{instrumentatin}
+    %\begin{minipage} [h] {7.5cm}
+      \includegraphics[scale=.5]{instrumentatin_new}
       \caption{An example of an instrumented class. A ShadowVar \emph{x} is created along with its get and put functions. The current thread is stored in the ShadowThread and used in the access operations.\label{instrumentation}}
-    \end{minipage}
+    %\end{minipage}
   \end{figure}
 
 
 \section{FastTrack}
-FastTrack is an extension of RoadRunner that uses a modified \emph{happens-before} relationship to monitor concurrent programs. It monitors an event stream and reports if there are any race conditions. A \emph{happens-before} relation is represented by vector clocks \cite{citeulike} which use considerable memory and require costly comparison operations. Given an application with  \emph{n} threads, each vector clock requires \emph{O(n)} storage space and each vector clock comparison operation requires \emph{O(n)} time. Previous tools have chosen between the precision (no false positives) and large overhead of full vector clocks and the imprecision which produces many false alarms. It can be difficult to identify real errors in a large least of fake ones. Fasttrack provides a precise race detector with low overhead by using lightweight vector clocks that in most cases use constant time and space operations.
+FastTrack is an extension of RoadRunner that uses a modified \emph{happens-before} relationship to monitor concurrent programs. It monitors an event stream and reports if there are any race conditions. A \emph{happens-before} relation is represented by vector clocks \cite{citeulike} which use considerable memory and require costly comparison operations. Given an application with  \emph{n} threads, each vector clock requires \emph{O(n)} storage space and each vector clock comparison operation requires \emph{O(n)} time. Previous tools have chosen between the precision (no false positives) and large overhead of full vector clocks and the imprecision of lightweight \emph{happens-before} techniques which produces many false alarms. FastTrack leverages a new lightweight vector clock design, \emph{epochs}, that, in most cases, uses constant time and space to provide accurate race detection and low overhead suitable for mobile environments.
 
 \subsection{Happens-Before Relationship}
-The Happens-Before relationship is an important relation in distributed and parallel systems. Formulated by Leslie Lamport \cite{Lamport1978}, is a "relation between the result of two events, such that if one event should happen before another event, the result must reflect that even if those events are in reality executed out of order." If the happens-before relation is respected during execution, then a program has no data races.
+The \emph{happens-before} relationship is an important relation in distributed and parallel systems. As defined by Leslie Lamport \cite{Lamport1978}, it is a `relation between the result of two events, such that if one event should happen before another event, the result must reflect that even if those events are in reality executed out of order'. If the happens-before relation is respected during execution, then a program has no data races. 
 
-\subsection{Fasttrack Algorithm}
-The key to the Fasttrack algorithm's low overhead is the observation that most operations don't need a full vector clock, just the information about the last access. The algorithm stores an epoch for the last access in most cases which is a tuple of the vector clock time (c)  and thread (t) denoted c@t. The idea is that writes are ordered until there is a race so the algorithm just needs to check if a new read or write proceeds the last recorded epoch. Let V1 and V2 be the vector clocks of thread 1 and 2, respectively.
+\subsection{FastTrack Algorithm}
+The key to the FastTrack algorithm's low overhead is the observation that most operations don't require a full vector clock to check for \emph{happens-before} violations on an object, just the information about the last time the object was accessed. The algorithm stores an \emph{epoch} for the last access in most cases, which is a tuple of the vector clock time (c)  and thread (t) denoted \emph{c@t}. The insight is that writes are ordered until there is a date race, so the algorithm just needs to check if a new read or write proceeds the last recorded \emph{epoch}. Let\emph{ V1} and \emph{V2} be the vector clocks of threads 1 and 2, respectively.
+% \begin{figure}[h]
+%    \centering
+%    \begin{minipage} [b] {8cm}
+%      \includegraphics[scale=1]{termin}
+%    \end{minipage}
+%    \begin{minipage} [b] {7cm}
+%      \includegraphics[scale=1]{lessthan}
+%	\caption{Terminology\label{termin}}
+%    \end{minipage}
+%  \end{figure}
+Figure \ref{trace} shows a sample trace and how the epochs \emph{Wx} and \emph{Rx} are updated between two threads with vector clocks \emph{C0} and \emph{C1}.
  \begin{figure}[h]
     \centering
-    \begin{minipage} [b] {8cm}
-      \includegraphics[scale=1]{termin}
-    \end{minipage}
-    \begin{minipage} [b] {7cm}
-      \includegraphics[scale=1]{lessthan}
-	\caption{Terminology\label{termin}}
-    \end{minipage}
-  \end{figure}
-Figure \ref{trace} shows a sample trace and how the epochs Wx and Rx are updated between two threads with vector clocks C0 and C1.
- \begin{figure}[h]
-    \centering
-    \begin{minipage} [b] {7.5cm}
-      \includegraphics[scale=1]{full_trace}
-      \caption{Instrumented Class\label{trace}}
-    \end{minipage}
+    %\begin{minipage} [b] {7.5cm}
+      \includegraphics[scale=.5]{full_trace_new}
+      \caption{Sample Trace\label{trace}}
+    %\end{minipage}
   \end{figure} 
-Figures \ref{read} and \ref{write} shows how Fasttrack handles reads and writes for different types of accesses and the observed percentage from benchmarks. Since read operations aren't always ordered (one could finish after with a earlier clock time) and a program would still be correct, it is sometimes necessary to keep a full vector clock to make sure the very last read isn't changed by a write. Less than 0.1\% of writes and reads require a full vector clock which is when multiple reads happen followed by a write.
+
+
+Figures \ref{read} and \ref{write} shows how FastTrack handles reads and writes for different types of accesses, and the observed percentage of each operation type from several benchmarks. Since read operations aren't always ordered (one could finish after with a earlier clock time) and a program would still be correct, it is sometimes necessary to keep a full vector clock to make sure the very last read isn't changed by a write. The takeaway here is that less than 1\% of reads and writes require operations on full vector clocks; the rest require only a comparison involving an epoch which runs in \emph{O(1)} time. 
+
  \begin{figure}[h]
     \centering
-    \includegraphics[scale=.5]{fast_read}
+    \includegraphics[scale=.4]{fast_read_new}
 	\caption{Read Accesses\label{read}}
  \end{figure}
 \begin{figure}[h]
-    \includegraphics[scale=.5]{fast_write}
+	\centering
+    \includegraphics[scale=.4]{fast_write_new}
 \caption{Write Accesses\label{write}}
   \end{figure}
 
-\section{Implementation}
-This section describes the changes we made to Fasttrack and RoadRunner to work with Android applications on Android 2.1. We chose Android 2.1 because its emulator and release are stable and has many tools available. The most significant hurdle with porting these systems is that Java.lang.instrumentation is not included in Android. We had to get around this by doing instrumentation and transformation at compile time and force metadata to be created.
 
-An app must run on the host machine to have its classes instrumented permanently so we have to unpackage Android files back to Java class files. The class files are run on a host Linux machine and the class files are instrumented. The Android app is then rebuilt with Fasttrack and RoadRunner libraries and run on the target device or emulator.   
+\section{Implementation}
+This section describes the changes we made to FastTrack and RoadRunner to work with Android applications on Android 2.1. Unfortunately, Android does not provide any libraries for bytecode instrumentation, which is absolutely necessary to run FastTrack. Because of this, we essentially split the original desktop implementation of FastTrack so that it runs in two separate phases:
+
+\begin{enumerate}
+\item Instrument .class files in Java Virtual Machine and store updated bytecode files
+\item Run Android application on Dalvik Virtual Machine with updated bytecode files with FastTrack included in application as external library
+\end{enumerate}
+
+The details are provided in the following sections.
+
+
+\subsection{Instrumentation}
+The java.lang.Instrument library is used by RoadRunner to instrument the target application's .class files \cite{Flanagan2009}. When running RoadRunner on a desktop machine, a user specifies which tools they want to use, as well as the target application. For example, the line 
+\begin{code}
+	rrrun -tool=FT test.Test
+\end{code}
+tells FastTrack (FT) to monitor the execution of class \emph{Test} in the package \emph{test}. As soon as RoadRunner and FastTrack have both been initialized, the .class file for the class \emph{Test} is instrumented using the native Java Instrument library. During the instrumentation, a \emph{metadata} file is also generated that records the static members fields and member functions for all of the target application's classes. This file is used later to look up class members as they are accessed while the application executes. As soon as the instrumentation has completed and the \emph{metadata} file has been created, \emph{Test} is executed. 
+
+As mentioned before, Android provides no libraries that support binary instrumentation. Because of this, we were forced to instrument the target Android application code in the Java Virtual Machine. Since the instrumented files would eventually be running inside an Android application, RoadRunner was modified to store the instrumented files into a temporary directory where they could be loaded back into the Android application that they belong to. This is phase 1 of our FastTrack implementation as described earlier.
+
+\subsection{Tool Startup Modifications}
+A minor problem arises from the way the original FastTrack tool was invoked; the sample \emph{rrrun} command shows that the target class to run is passed in at runtime as a parameter. This model of execution does not translate well to Android applications. When users want to run an application (whether on a physical Android device or in an emulator), they simply click on the icon for that application and it gets loaded into the Dalvik Virtual Machine. 
+
+To stay consistent with our goal of creating a tool with seamless usability, we needed to restructure the boot sequence of FastTrack. Our new implementation of FastTrack automatically initializes itself the first time that it receives an event from the underlying RoadRunner framework. Since the application code has been instrumented, it contains calls to the FastTrack tool. If the tool receives a call before it has loaded its tool properties file and the application's \emph{metadata} file, it will do so, and upon finishing, continue to handle the function call from the application. 
+
+\subsection{Exposed Interface}
+Although our implementation of FastTrack is able to initialize itself as described in the previous section, it does require a small modification to the application's source code. We expose our entire FastTrack interface as a single function call that must be made by the Android application's top level class. It is defined as follows:
+
+\begin{code}
+void initFTSession(InputStream propertyFileHandle,
+	           InputStream metadataFileHandle);
+\end{code}
+
+Since the FastTrack library is included in the application as a .jar file that is compiled in the Java Virtual Machine, it does not have the ability to open resources from the \emph{assets} folder of the target Android application, which is where the tool property and \emph{metadata} files are stored. The user is required to simply created \emph{InputStream} objects to each of these two files and pass them to FastTrack. Although a completely transparent implementation would have been preferred, this single function call is much simpler than other race detector tools that require extensive updates to an application's source code.
+
+\subsection{Integration with Android Application}
+In order to run an Android application with our implementation of FastTrack, there are two phases as mentioned before. The first phase handles the bytecode instrumentation. Since this is done in the Java Virtual Machine (due to the dependency on java.lang.Instrument), the application's source code must be compiled with the Java compiler \emph{javac}; once this has been done, FastTrack can be invoked with the same command that the original implementation used. However, our FastTrack tool will write out the newly instrumented .class files to a temporary directory that also contains the compiled FastTrack source. 
+
+Once the instrumentation step is done, this directory is sanitized and compressed to a .jar file.  Sanitation refers to the removal of classes that are not needed in our FastTrack implementation in order to minimize its size in memory. The .jar file can then be added to the Android application with a simple \emph{Import} operation in the Eclipse IDE. When the application is run, the compiled source code contained in the .jar file will be executed, which includes calls to the FastTrack library. This is considered phase two of our FastTrack implementation; at this point, if any data races are detected, error messages are printed to Eclipse's Logcat console, which can be dumped to a text file for preservation.
+
 
 \section{Evaluation}
 In evaluating our project, we looked at increase in code size, runtime overhead, ease of use, and bugs found. We were able to instrument class files and prepare simple class files for running on Android.

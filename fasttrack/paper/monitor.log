@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.5)  24 APR 2012 22:21
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.5)  25 APR 2012 02:37
 entering extended mode
  %&-line parsing enabled.
 **monitor.tex
@@ -313,64 +313,76 @@ LaTeX Info: The control sequence `\]' is already robust on input line 472.
 )
 \@dblbotnum=\count115
 \c@dblbotnumber=\count116
+)
+(/usr/share/texmf-texlive/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2008/02/07
+
+Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
+<2008/02/07> (tvz)
+\FV@CodeLineNo=\count117
+\FV@InFile=\read1
+\FV@TabBox=\box30
+\c@FancyVerbLine=\count118
+\FV@StepNumber=\count119
+\FV@OutFile=\write3
 ) (./monitor.aux)
 \openout1 = `monitor.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
 
 (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count117
+\scratchcounter=\count120
 \scratchdimen=\dimen126
-\scratchbox=\box30
-\nofMPsegments=\count118
-\nofMParguments=\count119
+\scratchbox=\box31
+\nofMPsegments=\count121
+\nofMParguments=\count122
 \everyMPshowfont=\toks37
-\MPscratchCnt=\count120
+\MPscratchCnt=\count123
 \MPscratchDim=\dimen127
-\MPnumerator=\count121
+\MPnumerator=\count124
 \everyMPtoPDFconversion=\toks38
 )
-Package hyperref Info: Link coloring OFF on input line 5.
+Package hyperref Info: Link coloring OFF on input line 8.
  (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
 Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 
 (/usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
 Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
-\c@section@level=\count122
+\c@section@level=\count125
 )
-LaTeX Info: Redefining \ref on input line 5.
-LaTeX Info: Redefining \pageref on input line 5.
+LaTeX Info: Redefining \ref on input line 8.
+LaTeX Info: Redefining \pageref on input line 8.
  (./monitor.out)
 (./monitor.out)
-\@outlinefile=\write3
-\openout3 = `monitor.out'.
+\@outlinefile=\write4
+\openout4 = `monitor.out'.
 
-\AtBeginShipoutBox=\box31
-LaTeX Font Info:    Try loading font information for U+msa on input line 20.
+\AtBeginShipoutBox=\box32
+LaTeX Font Info:    Try loading font information for U+msa on input line 23.
  (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 20.
+LaTeX Font Info:    Try loading font information for U+msb on input line 23.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+lasy on input line 20.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 23.
 
 (/usr/share/texmf-texlive/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
@@ -378,12 +390,12 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 
 
 ]
-Overfull \hbox (4.73267pt too wide) in paragraph at lines 48--49
+Overfull \hbox (4.73267pt too wide) in paragraph at lines 51--52
 []\T1/aer/m/n/9 [[]9[]] is a de-ter-min-is-tic sys-tem that pro-vides guar-
  []
 
 
-Overfull \hbox (1.19551pt too wide) in paragraph at lines 56--57
+Overfull \hbox (1.19551pt too wide) in paragraph at lines 59--60
 \T1/aer/m/n/9 rent sys-tems for bugs that ap-pear only in cer-tain thread
  []
 
@@ -391,86 +403,70 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.66 \subsection{RoadRunner API}
+l.69 \subsection{RoadRunner API}
                                  [2]
-<instrumentatin.PNG, id=81, 260.47313pt x 302.63063pt>
-File: instrumentatin.PNG Graphic file (type png)
+<instrumentatin_new.png, id=97, 383.4325pt x 443.6575pt>
+File: instrumentatin_new.png Graphic file (type png)
 
-<use instrumentatin.PNG>
-Overfull \hbox (21.02798pt too wide) in paragraph at lines 75--76
-[][] 
- []
-
-<termin.PNG, id=85, 244.66406pt x 60.225pt>
-File: termin.PNG Graphic file (type png)
- <use termin.PNG>
-Overfull \hbox (17.04141pt too wide) in paragraph at lines 92--93
-[][] 
- []
-
-<lessthan.PNG, id=86, 107.65219pt x 13.55063pt>
-File: lessthan.PNG Graphic file (type png)
- <use lessthan.PNG>
-<full_trace.PNG, id=88, 149.8097pt x 231.11343pt>
-File: full_trace.PNG Graphic file (type png)
- <use full_trace.PNG>
-<fast_read.PNG, id=91, 293.59688pt x 294.34969pt>
-File: fast_read.PNG Graphic file (type png)
- <use fast_read.PNG>
-<fast_write.PNG, id=92, 289.08pt x 238.64156pt>
-File: fast_write.PNG Graphic file (type png)
- <use fast_write.PNG>
+<use instrumentatin_new.png>
+<full_trace_new.png, id=101, 357.335pt x 299.1175pt>
+File: full_trace_new.png Graphic file (type png)
+ <use full_trace_new.png>
+<fast_read_new.png, id=104, 443.6575pt x 458.71375pt>
+File: fast_read_new.png Graphic file (type png)
+ <use fast_read_new.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+<fast_write_new.png, id=105, 415.5525pt x 359.3425pt>
+File: fast_write_new.png Graphic file (type png)
+ <use fast_write_new.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Overfull \hbox (26.87175pt too wide) in paragraph at lines 119--120
-\T1/aer/m/n/9 hur-dle with port-ing these sys-tems is that Java.lang.instrument
-ation
- []
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.122 
-       [3 <./instrumentatin.PNG> <./termin.PNG> <./lessthan.PNG>]
+l.128 
+       [3 <./instrumentatin_new.png (PNG copy)> <./full_trace_new.png (PNG copy
+)>]
+LaTeX Font Info:    Try loading font information for T1+aett on input line 139.
+
+ (/usr/share/texmf-texlive/tex/latex/ae/t1aett.fd
+File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
+)pdfTeX warning (ext4): destination with the same identifier (name{page.}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.160 
+       [4 <./fast_read_new.png (PNG copy)> <./fast_write_new.png (PNG copy)>]
 (./monitor.bbl)pdfTeX warning (ext4): destination with the same identifier (nam
 e{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.131 \end{document}
-                     [4 <./full_trace.PNG> <./fast_read.PNG> <./fast_write.PNG>
-] (./monitor.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+l.175 \end{document}
+                     [5] (./monitor.aux) ) 
 Here is how much of TeX's memory you used:
- 5496 strings out of 493848
- 75053 string characters out of 1152824
- 157563 words of memory out of 3000000
- 8611 multiletter control sequences out of 15000+50000
- 52764 words of font info for 72 fonts, out of 3000000 for 9000
+ 5886 strings out of 493848
+ 81223 string characters out of 1152824
+ 164436 words of memory out of 3000000
+ 8993 multiletter control sequences out of 15000+50000
+ 55110 words of font info for 76 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 39i,10n,37p,1208b,303s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texli
-ve/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-texlive/fonts/typ
-e1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texmf-texlive/fonts/type1/public
-/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/
-cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-</usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf
--texlive/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-texlive/fonts/ty
-pe1/urw/times/utmb8a.pfb>
-Output written on monitor.pdf (4 pages, 240710 bytes).
+ 39i,10n,37p,1208b,302s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/d
+vips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx9
+.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></us
+r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/te
+xmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/f
+onts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-texlive/fonts/type1/p
+ublic/amsfonts/cm/cmtt8.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/
+uhvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/
+share/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb>
+Output written on monitor.pdf (5 pages, 297560 bytes).
 PDF statistics:
- 151 PDF objects out of 1000 (max. 8388607)
- 31 named destinations out of 1000 (max. 500000)
- 127 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 167 PDF objects out of 1000 (max. 8388607)
+ 36 named destinations out of 1000 (max. 500000)
+ 149 words of extra memory for PDF output out of 10000 (max. 10000000)
 
