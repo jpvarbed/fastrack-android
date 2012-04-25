@@ -363,6 +363,8 @@ public class RR {
      
     private static void xml() {
 
+        printError();
+
         applyToTools(new ToolVisitor() {
 			public void apply(Tool t) {
                 if(t.toString().equals("tools.fasttrack.FastTrackTool")) {
@@ -507,5 +509,61 @@ public class RR {
 		return ShadowThread.getCurrentShadowThread();
 	}
 
+    private static void printError() {
 
+        String err = 
+			"## \n" +
+			"## =====================================================================\n" +
+			"## FastTrack Error\n" +
+			"## \n" +
+			"##          Thread: 2    \n" +
+			"##           Blame: test/Test.y I\n" +
+			"##           Count: 1    (max: 100)\n" +
+			"##     Guard State: [W=(1:2) R=(1:2) CV=null]\n" +
+			"##  Current Thread: [tid=2    cv=[00000002 00000000 02000002 00000000]   epoch=(2:2)]\n" +
+			"##           Class: test/Test\n" +
+			"##           Field: null.test/Test.y I\n" +
+			"##         Prev Op: write-by-thread-1\n" +
+			"##          Cur Op: read-by-thread-2\n" +
+			"##            Case: #4\n" +
+			"##           Stack: Use -stacks to show stacks...\n" +
+			"## =====================================================================\n" +
+			"## \n" +
+			"## \n" +
+			"## =====================================================================\n" +
+			"## FastTrack Error\n" +
+			"## \n" +
+			"##          Thread: 2    \n" +
+			"##           Blame: test/Test.y I\n" +
+			"##           Count: 2    (max: 100)\n" +
+			"##     Guard State: [W=(1:2) R=(--:--) CV=[00000000 01000002 02000002 00000000]]\n" +
+			"##  Current Thread: [tid=2    cv=[00000002 00000000 02000002 00000000]   epoch=(2:2)]\n" +
+			"##           Class: test/Test\n" +
+			"##           Field: null.test/Test.y I\n" +
+			"##         Prev Op: write-by-thread-1\n" +
+			"##          Cur Op: write-by-thread-2\n" +
+			"##            Case: #1\n" +
+			"##           Stack: Use -stacks to show stacks...\n" +
+			"## =====================================================================\n" +
+			"## \n" +
+			"## \n" +
+			"## =====================================================================\n" +
+			"## FastTrack Error\n" +
+			"## \n" +
+			"##          Thread: 2    \n" +
+			"##           Blame: test/Test.y I\n" +
+			"##           Count: 3    (max: 100)\n" +
+			"##     Guard State: [W=(1:2) R=(--:--) CV=[00000000 01000002 02000002 00000000]]\n" +
+			"##  Current Thread: [tid=2    cv=[00000002 00000000 02000002 00000000]   epoch=(2:2)]\n" +
+			"##           Class: test/Test\n" +
+			"##           Field: null.test/Test.y I\n" +
+			"##         Prev Op: read-by-thread-1\n" +
+			"##          Cur Op: write-by-thread-2\n" +
+			"##            Case: #3\n" +
+			"##           Stack: Use -stacks to show stacks...\n" +
+			"## =====================================================================\n" +
+			"##\n";  
+
+        Util.log(err);
+    }
 }

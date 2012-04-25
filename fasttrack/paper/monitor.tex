@@ -103,7 +103,7 @@ Figure \ref{trace} shows a sample trace and how the epochs \emph{Wx} and \emph{R
  \begin{figure}[h]
     \centering
     %\begin{minipage} [b] {7.5cm}
-      \includegraphics[scale=.5]{full_trace_new}
+      \includegraphics[scale=.55]{full_trace_new}
       \caption{Sample Trace\label{trace}}
     %\end{minipage}
   \end{figure} 
@@ -170,7 +170,7 @@ This project started out as a proof-of-concept that FastTrack could be ported to
 \subsection{Resource Usage}
 To supplement our evaluation of FastTrack's correctness, we also observed the amount of computing resources that were required by the race detector. There was a risk of too much memory being consumed by the application's source code since instrumentation adds a considerable amount of shadow variables and member functions to each file. However, we noticed that instrumented files were only, on average, 30\% larger than their original version. Additionally, we package up the instrumented source as a .jar file, which involves a compression algorithm. We noticed that file sizes decreased to up to 40\% of their original size when being added to the .jar file. This effectively cancels out any memory overhead due to instrumentation.
 
-A major concern with many race detectors is the slowdown incurred by the race detection algorithm running in the background. FastTrack employs \emph{epochs} to help reduce this overhead, which makes a significant improvement compared to tools such as Eraser than can slowdown up to 100\% \cite{Savage1997}. We noticed slowdowns around 10\%, which is consistent to the performance overhead of the original FastTrack system running on a desktop system \cite{Flanagan2010}.
+A major concern with many race detectors is the slowdown incurred by the race detection algorithm running in the background. FastTrack employs \emph{epochs} to help reduce this overhead, which makes a significant improvement compared to tools such as Eraser that can cause applications to run 100 times slower \cite{Savage1997}. We noticed slowdowns around 10 times the original applications execution time, which is consistent to the performance overhead of the original FastTrack system running on a desktop system \cite{Flanagan2010}.
 
 \subsection{Usability}
 A significant limit of our system is the inability to instrument code that uses Android libraries. Since the instrumentation happens in the Java Virtual Machine, any code that cannot be compiled with \emph{javac} cannot be instrumented. Therefore, our implemented of FastTrack will only be able to detect data races in the files of an application that contain exclusively native Java code.
@@ -178,11 +178,8 @@ A significant limit of our system is the inability to instrument code that uses 
 Although we have proved the concept that FastTrack can be applied to the Android mobile operating system, it is not yet a complete data race detector. Before a fully robust race detector can be written for Android, a instrumentation class must be added to Android that allows the instrumentation of .dex files (compiled Java code format used on the Dalvik VM).
 
 
-
-
-
 \section{Conclusion}
-We believe that the FastTrack algorithm is a good fit for mobile systems, but the instrumentation system of RoadRunner and the lack of instrumentation in Android limits its effectiveness. If the RoadRunner system was rewritten to always statically load classes or an instrumentation system was made for Android, then more apps could be monitored.
+Our analysis of a range of data race detectors and record and replay systems has led us to the conclusion that FastTrack is the best option for mobile systems. It runs with relatively low overhead, and can verify a \emph{happens-before} relationship for the majority of synchronization operations and memory accesses with operations that can in \emph{O(1)} complexity. Our implementation of the FastTrack tool allows for efficient and correct data race detection in Android applications that run native Java code on the Dalvik Virtual Machine.
 
 \bibliographystyle{acm}
 \bibliography{monitor}
