@@ -34,7 +34,7 @@ Smart phones are becoming multicore and apps are running  with multiple threads.
 
 There have been many race detectors, record and replay systems, and other tools to monitor and debug concurrent programs for desktop systems. In our research and our time working in industry with commercial Android products, we have found no such tools for mobile systems. It is possible there are proprietary tools that Apple and Microsoft use for their mobile systems, bu there isn't yet a publicly-available one for Android.
  
-Our hypothesis is that data race techniques implemented on desktop systems can be applied to mobile systems. Our project ports a low-overhead, fast, and thorough dynamic race detector called FastTrack that runs on the Java Virtual Machine to Android's Dalvik Virtual Machine. The detector FastTrack \cite{Flanagan2009} implements an algorithm that, used with the dynamic analysis framework RoadRunner, can monitor memory accesses and synchronization operations in concurrent Java programs. FastTrack checks that programs follow a \emph{happens-before} relationship[citation] with lightweight vector clocks that, in most cases, use constant space and time operations. RoadRunner provides an API for communicating an event stream to back-end analysis tools; FastTrack monitors this event stream to monitor an application's behavior. The tool makes debugging multithreaded applications much faster and easier to fix by providing detailed information about each detected data race.
+Our hypothesis is that data race techniques implemented on desktop systems can be applied to mobile systems. Our project ports a low-overhead, fast, and thorough dynamic race detector called FastTrack that runs on the Java Virtual Machine to Android's Dalvik Virtual Machine. The detector FastTrack \cite{Flanagan2009} implements an algorithm that, used with the dynamic analysis framework RoadRunner, can monitor memory accesses and synchronization operations in concurrent Java programs. FastTrack checks that programs follow a \emph{happens-before} relationship\cite{Flanagan2010} with lightweight vector clocks that, in most cases, use constant space and time operations. RoadRunner provides an API for communicating an event stream to back-end analysis tools; FastTrack monitors this event stream to monitor an application's behavior. The tool makes debugging multithreaded applications much faster and easier to fix by providing detailed information about each detected data race.
  
 In this paper we make two contributions:
 \begin{enumerate}
@@ -42,7 +42,7 @@ In this paper we make two contributions:
 \item A partial port of FastTrack and RoadRunner to Android
 \end{enumerate}
 
-The rest of the paper is organized as follows. The following section reviews tools used for multithreaded program debugging and development and explains our choice of which tool is the most appropriate to port to Android. Section 3 describes the  RoadRunner instrumentation framework. Section 4 explains the algorithm used by FastTrack to build and monitor a \emph{happens-before} relation. Section 5 presents the modifications we made to the FastTrack tool to run it on Android, followed by an evaluation of our work in Section 6. Section 7 discusses possible areas of future work and extensions that could be added to our work.
+The rest of the paper is organized as follows. The following section reviews tools used for multithreaded program debugging and development and explains our choice of which tool is the most appropriate to port to Android. Section 3 describes the  RoadRunner instrumentation framework. Section 4 explains the algorithm used by FastTrack to build and monitor a \emph{happens-before} graph. Section 5 presents the modifications we made to the FastTrack tool to run it on Android, followed by an evaluation of our work in Section 6. 
 
 \section{Survey of Existing Tools}
 There are many techniques for detecting data races and providing record and replay capabilities for desktop multithreaded applications. We surveyed different tools and systems to determine which would be the most appropriate for use in a mobile computing environment. Mobile systems, compared to desktops and laptops, have less memory and fewer cores since energy is a limiting resource for system performance; therefore, we were most interested in debugging tools that had relatively small memory footprints and performance overheads. False positives, when a benign data race is erroneously reported as an error, greatly limit a tool's usefulness and usability, so we favored tools that guaranteed to report only legitimate errors. Several debugging tools require developers to make modifications to their application's source code before the tool can be used. This is not only a burden to the programmer, but also could possibly introduce additional bugs that were not previously present. Our ideal tool requires no source code modifications to preserve both correctness and usability. Our analysis of five different desktop multithreaded debugging tools is presented below.
@@ -165,10 +165,24 @@ Once the instrumentation step is done, this directory is sanitized and compresse
 
 
 \section{Evaluation}
-In evaluating our project, we looked at increase in code size, runtime overhead, ease of use, and bugs found. We were able to instrument class files and prepare simple class files for running on Android.
+This project started out as a proof-of-concept that FastTrack could be ported to run on Android's Dalvik Virtual Machine. After we had completed our implementation, we were able to run a set of multithreaded test cases on an Android emulator. Since we had written the test cases manually, it was known which tests contained legitimate data races. Our FastTrack implementation was able to correctly identify such data races and printed the appropriate error messages. 
+
+\subsection{Resource Usage}
+To supplement our evaluation of FastTrack's correctness, we also observed the amount of computing resources that were required by the race detector. There was a risk of too much memory being consumed by the application's source code since instrumentation adds a considerable amount of shadow variables and member functions to each file. However, we noticed that instrumented files were only, on average, 30\% larger than their original version. Additionally, we package up the instrumented source as a .jar file, which involves a compression algorithm. We noticed that file sizes decreased to up to 40\% of their original size when being added to the .jar file. This effectively cancels out any memory overhead due to instrumentation.
+
+A major concern with many race detectors is the slowdown incurred by the race detection algorithm running in the background. FastTrack employs \emph{epochs} to help reduce this overhead, which makes a significant improvement compared to tools such as Eraser than can slowdown up to 100\% \cite{Savage1997}. We noticed slowdowns around 10\%, which is consistent to the performance overhead of the original FastTrack system running on a desktop system \cite{Flanagan2010}.
+
+\subsection{Usability}
+A significant limit of our system is the inability to instrument code that uses Android libraries. Since the instrumentation happens in the Java Virtual Machine, any code that cannot be compiled with \emph{javac} cannot be instrumented. Therefore, our implemented of FastTrack will only be able to detect data races in the files of an application that contain exclusively native Java code.
+
+Although we have proved the concept that FastTrack can be applied to the Android mobile operating system, it is not yet a complete data race detector. Before a fully robust race detector can be written for Android, a instrumentation class must be added to Android that allows the instrumentation of .dex files (compiled Java code format used on the Dalvik VM).
+
+
+
+
 
 \section{Conclusion}
-We believe that the Fasttrack algorithm is a good fit for mobile systems, but the instrumentation system of RoadRunner and the lack of instrumentation in Android limits its effectiveness. If the RoadRunner system was rewritten to always statically load classes or an instrumentation system was made for Android, then more apps could be monitored.
+We believe that the FastTrack algorithm is a good fit for mobile systems, but the instrumentation system of RoadRunner and the lack of instrumentation in Android limits its effectiveness. If the RoadRunner system was rewritten to always statically load classes or an instrumentation system was made for Android, then more apps could be monitored.
 
 \bibliographystyle{acm}
 \bibliography{monitor}
