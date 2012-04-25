@@ -44,11 +44,14 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Arrays;
 import java.io.Serializable;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 
 import rr.instrument.Instrumentor;
 import rr.instrument.classes.CloneFixer;
 import rr.instrument.classes.ThreadDataThunkInserter;
 import rr.meta.InstrumentationFilter;
+import rr.meta.MetaDataInfoMaps;
 import rr.replay.RRReplay;
 import rr.state.AbstractArrayStateCache;
 import rr.state.ArrayStateFactory;
@@ -56,6 +59,7 @@ import rr.state.agent.ThreadStateExtensionAgent;
 import rr.state.agent.ThreadStateExtensionAgent.InstrumentationMode;
 import rr.state.update.Updaters;
 import rr.tool.RR;
+import rr.tool.ToolLoader;
 import acme.util.Assert;
 import acme.util.Util;
 import acme.util.io.URLUtils;
@@ -129,6 +133,17 @@ public class RRMain {
 	public static RRMainLoader loader;
 
 	private static volatile int runningThreads;
+
+    // Function to allow Android app to initalize FT with proper property files
+    public static void initFTSession(InputStream simplePropFH, InputStream ftPropFH, ObjectInputStream metaFH) {
+        
+        ToolLoader.simplePropertiesStream = simplePropFH;
+        ToolLoader.ftPropertiesStream = ftPropFH;
+        MetaDataInfoMaps.in = metaFH;
+
+        MetaDataInfoMaps.readMetaData();
+    }
+
 
 	private static void runTargetMain(final String className,
 			final String[] argv) throws InterruptedException {

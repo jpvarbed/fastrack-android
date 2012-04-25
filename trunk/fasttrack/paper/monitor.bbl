@@ -1,0 +1,55 @@
+\begin{thebibliography}{1}
+
+\bibitem{Bruneton02}
+{\sc Bruneton, E., Lenglet, R., and Coupaye, T.}
+\newblock Asm: A code manipulation tool to implement adaptable systems.
+\newblock In {\em In Adaptable and extensible component systems\/} (2002).
+
+\bibitem{Flanagan2009}
+{\sc Flanagan, C., and Freund, S.~N.}
+\newblock Fasttrack: efficient and precise dynamic race detection.
+\newblock {\em SIGPLAN Not. 44}, 6 (June 2009), 121--133.
+
+\bibitem{Flanagan2010}
+{\sc Flanagan, C., and Freund, S.~N.}
+\newblock The roadrunner dynamic analysis framework for concurrent programs.
+\newblock In {\em Proceedings of the 9th ACM SIGPLAN-SIGSOFT workshop on
+  Program analysis for software tools and engineering\/} (New York, NY, USA,
+  2010), PASTE '10, ACM, pp.~1--8.
+
+\bibitem{Lamport1978}
+{\sc Lamport, L.}
+\newblock Time, clocks, and the ordering of events in a distributed system.
+\newblock {\em Commun. ACM 21}, 7 (July 1978), 558--565.
+
+\bibitem{citeulike}
+{\sc Mattern, F.}
+\newblock Virtual time and global states of distributed systems.
+\newblock In {\em Parallel and Distributed Algorithms: proceedings of the
+  International Workshop on Parallel and Distributed Algorithms\/} (1988).
+
+\bibitem{Musuvathi2008}
+{\sc Musuvathi, M., Qadeer, S., Ball, T., Basler, G., Nainar, P.~A., and
+  Neamtiu, I.}
+\newblock Finding and reproducing heisenbugs in concurrent programs.
+\newblock In {\em Proceedings of the 8th USENIX conference on Operating systems
+  design and implementation\/} (Berkeley, CA, USA, 2008), OSDI'08, USENIX
+  Association, pp.~267--280.
+
+\bibitem{Olszewski2009}
+{\sc Olszewski, M., Ansel, J., and Amarasinghe, S.}
+\newblock Kendo: efficient deterministic multithreading in software.
+\newblock {\em SIGPLAN Not. 44}, 3 (Mar. 2009), 97--108.
+
+\bibitem{Savage1997}
+{\sc Savage, S., Burrows, M., Nelson, G., Sobalvarro, P., and Anderson, T.}
+\newblock Eraser: a dynamic data race detector for multithreaded programs.
+\newblock {\em ACM Trans. Comput. Syst. 15}, 4 (Nov. 1997), 391--411.
+
+\bibitem{Veeraraghavan2012}
+{\sc Veeraraghavan, K., Lee, D., Wester, B., Ouyang, J., Chen, P.~M., Flinn,
+  J., and Narayanasamy, S.}
+\newblock Doubleplay: Parallelizing sequential logging and replay.
+\newblock {\em ACM Trans. Comput. Syst. 30}, 1 (Feb. 2012), 3:1--3:24.
+
+\end{thebibliography}
