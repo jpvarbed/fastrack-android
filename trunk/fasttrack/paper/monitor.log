@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.5)  25 APR 2012 09:28
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.5)  25 APR 2012 09:50
 entering extended mode
  %&-line parsing enabled.
 **monitor.tex
@@ -387,13 +387,13 @@ LaTeX Font Info:    Try loading font information for U+lasy on input line 23.
 (/usr/share/texmf-texlive/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-Overfull \hbox (4.5074pt too wide) in paragraph at lines 31--32
+Overfull \hbox (4.5074pt too wide) in paragraph at lines 32--33
 \T1/aer/m/n/9 Multicore ar-chi-tec-tures and mul-ti-threaded pro-gram-ming have
 
  []
 
 
-Overfull \hbox (6.99115pt too wide) in paragraph at lines 31--32
+Overfull \hbox (6.99115pt too wide) in paragraph at lines 32--33
 \T1/aer/m/n/9 meet in-creas-ing de-mands for com-put-ing power. Mul-ti-threaded
 
  []
@@ -402,12 +402,12 @@ Overfull \hbox (6.99115pt too wide) in paragraph at lines 31--32
 
 
 ]
-Overfull \hbox (4.73267pt too wide) in paragraph at lines 51--52
+Overfull \hbox (4.73267pt too wide) in paragraph at lines 52--53
 []\T1/aer/m/n/9 [[]9[]] is a de-ter-min-is-tic sys-tem that pro-vides guar-
  []
 
 
-Overfull \hbox (1.19551pt too wide) in paragraph at lines 59--60
+Overfull \hbox (1.19551pt too wide) in paragraph at lines 60--61
 \T1/aer/m/n/9 rent sys-tems for bugs that ap-pear only in cer-tain thread
  []
 
@@ -415,11 +415,11 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.67 
+l.68 
       [2]
 
 LaTeX Warning: Reference `instrumentation' on page \thepage  undefined on input
- line 74.
+ line 75.
 
 <instrumentatin_new.png, id=106, 383.4325pt x 443.6575pt>
 File: instrumentatin_new.png Graphic file (type png)
@@ -444,10 +444,10 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.127 \section{Implementation}
+l.128 \section{Implementation}
                                [3 <./instrumentatin_new.png (PNG copy)> <./full
 _trace_new.png (PNG copy)>]
-LaTeX Font Info:    Try loading font information for T1+aett on input line 140.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 141.
 
  (/usr/share/texmf-texlive/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
@@ -455,18 +455,18 @@ File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.161 
+l.162 
        [4 <./fast_read_new.png (PNG copy)> <./fast_write_new.png (PNG copy)>]
 (./monitor.bblpdfTeX warning (ext4): destination with the same identifier (name
 {page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.39 \bibitem{Olszewski2009}
-                             [5])pdfTeX warning (ext4): destination with the sa
-me identifier (name{page.}) has been already used, duplicate ignored
+l.24 
+      [5])pdfTeX warning (ext4): destination with the same identifier (name{pag
+e.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.187 \end{document}
+l.190 \end{document}
                      [6
 
 ] (./monitor.aux)
@@ -481,7 +481,7 @@ Here is how much of TeX's memory you used:
  8994 multiletter control sequences out of 15000+50000
  52597 words of font info for 73 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 39i,10n,37p,1210b,396s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,10n,37p,1210b,398s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texli
 ve/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-texlive/fonts/typ
 e1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/public/
@@ -490,7 +490,7 @@ mti9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt8.pfb></u
 sr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-te
 xlive/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-texlive/fonts/type1
 /urw/times/utmb8a.pfb>
-Output written on monitor.pdf (6 pages, 294574 bytes).
+Output written on monitor.pdf (6 pages, 295681 bytes).
 PDF statistics:
  180 PDF objects out of 1000 (max. 8388607)
  38 named destinations out of 1000 (max. 500000)

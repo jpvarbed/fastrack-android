@@ -22,6 +22,7 @@
 \maketitle
 
 \begin{abstract}
+\itshape
 As smart phones become more engrained in every day life, the amount of work they are expected to do increases dramatically. Many applications previously limited to desktop systems have been ported to the mobile space. As more powerful applications are expected to run on mobile phones, the computation power on the phones increases to meet the demands. The recent introduction of multicore architectures to the mobile space has allowed applications to become multithreaded; as a result, the same issues that arise from multithreaded programming on desktop systems have started to become relevant in the mobile space. There is a noticeable lack of programming tools to help developers deal with such issues on mobile platforms.
  
 This paper presents an implementation and port of the FastTrack dynamic data race detector to the Android mobile operating system. Our implementation is able to detect data races in incorrectly written parallel programs, even though Android lacks bytecode instrumentation libraries, which are central to most race detection tools.
@@ -135,7 +136,7 @@ This section describes the changes we made to FastTrack and RoadRunner to work w
 The details are provided in the following sections.
 
 
-\subsection{Instrumentation}
+\subsection{Instrumentation Method}
 The java.lang.Instrument library is used by RoadRunner to instrument the target application's .class files \cite{Flanagan2009}. When running RoadRunner on a desktop machine, a user specifies which tools they want to use, as well as the target application. For example, the line 
 \begin{code}
 	rrrun -tool=FT test.Test
@@ -145,9 +146,9 @@ tells FastTrack (FT) to monitor the execution of class \emph{Test} in the packag
 As mentioned before, Android provides no libraries that support binary instrumentation. Because of this, we were forced to instrument the target Android application code in the Java Virtual Machine. Since the instrumented files would eventually be running inside an Android application, RoadRunner was modified to store the instrumented files into a temporary directory where they could be loaded back into the Android application that they belong to. This is phase 1 of our FastTrack implementation as described earlier.
 
 \subsection{Tool Startup Modifications}
-A minor problem arises from the way the original FastTrack tool was invoked; the sample \emph{rrrun} command shows that the target class to run is passed in at runtime as a parameter. This model of execution does not translate well to Android applications. When users want to run an application (whether on a physical Android device or in an emulator), they simply click on the icon for that application and it gets loaded into the Dalvik Virtual Machine. 
+A minor problem arises from the way the original FastTrack tool was invoked; the sample \emph{rrrun} command shows that the target class to run is passed in at runtime as a parameter. This model of execution does not translate well to Android applications. When users want to run an application (whether on a physical Android device or in an emulator), they simply click on the icon for that application and it gets loaded into the Dalvik Virtual Machine. Android provides no method of passing an installed application as a parameter to an executable file.
 
-To stay consistent with our goal of creating a tool with seamless usability, we needed to restructure the boot sequence of FastTrack. Our new implementation of FastTrack automatically initializes itself the first time that it receives an event from the underlying RoadRunner framework. Since the application code has been instrumented, it contains calls to the FastTrack tool. If the tool receives a call before it has loaded its tool properties file and the application's \emph{metadata} file, it will do so, and upon finishing, continue to handle the function call from the application. 
+To stay consistent with our goal of creating a tool with seamless usability, we needed to restructure the boot sequence of FastTrack. Our new implementation of FastTrack automatically initializes itself the first time that it receives an event from the underlying RoadRunner framework. Since the user's application code has been instrumented, it contains calls to the FastTrack tool. If the tool receives a call before it has loaded its tool properties file and the application's \emph{metadata} file, it will do so, and upon finishing, continue to handle the function call from the application. 
 
 \subsection{Exposed Interface}
 Although our implementation of FastTrack is able to initialize itself as described in the previous section, it does require a small modification to the application's source code. We expose our entire FastTrack interface as a single function call that must be made by the Android application's top level class. It is defined as follows:
@@ -159,17 +160,17 @@ void initFTSession(InputStream propertyFileHandle,
 
 Since the FastTrack library is included in the application as a .jar file that is compiled in the Java Virtual Machine, it does not have the ability to open resources from the \emph{assets} folder of the target Android application, which is where the tool property and \emph{metadata} files are stored. The user is required to simply created \emph{InputStream} objects to each of these two files and pass them to FastTrack. Although a completely transparent implementation would have been preferred, this single function call is much simpler than other race detector tools that require extensive updates to an application's source code.
 
-\subsection{Integration with Android Application}
+\subsection{Integration with Android Applications}
 In order to run an Android application with our implementation of FastTrack, there are two phases as mentioned before. The first phase handles the bytecode instrumentation. Since this is done in the Java Virtual Machine (due to the dependency on java.lang.Instrument), the application's source code must be compiled with the Java compiler \emph{javac}; once this has been done, FastTrack can be invoked with the same command that the original implementation used. However, our FastTrack tool will write out the newly instrumented .class files to a temporary directory that also contains the compiled FastTrack source. 
 
 Once the instrumentation step is done, this directory is sanitized and compressed to a .jar file.  Sanitation refers to the removal of classes that are not needed in our FastTrack implementation in order to minimize its size in memory. The .jar file can then be added to the Android application with a simple \emph{Import} operation in the Eclipse IDE. When the application is run, the compiled source code contained in the .jar file will be executed, which includes calls to the FastTrack library. This is considered phase two of our FastTrack implementation; at this point, if any data races are detected, error messages are printed to Eclipse's Logcat console, which can be dumped to a text file for preservation.
 
 
 \section{Evaluation}
-This project started out as a proof-of-concept that FastTrack could be ported to run on Android's Dalvik Virtual Machine. After we had completed our implementation, we were able to run a set of multithreaded test cases on an Android emulator. Since we had written the test cases manually, it was known which tests contained legitimate data races. Our FastTrack implementation was able to correctly identify such data races and printed the appropriate error messages. 
+This project started out as a proof-of-concept that FastTrack could be ported to run on Android's Dalvik Virtual Machine. After we had completed our implementation, we were able to run a set of multithreaded test cases on an Android emulator. Since we had written the test cases manually, it was known which tests contained legitimate data races. Our FastTrack implementation was able to correctly identify such data races and printed the appropriate error messages.
 
 \subsection{Resource Usage}
-To supplement our evaluation of FastTrack's correctness, we also observed the amount of computing resources that were required by the race detector. There was a risk of too much memory being consumed by the application's source code since instrumentation adds a considerable amount of shadow variables and member functions to each file. However, we noticed that instrumented files were only, on average, 30\% larger than their original version. Additionally, we package up the instrumented source as a .jar file, which involves a compression algorithm. We noticed that file sizes decreased to up to 40\% of their original size when being added to the .jar file. This effectively cancels out any memory overhead due to instrumentation.
+To supplement our evaluation of FastTrack's correctness, we also observed the amount of computing resources that were required by the race detector. There was a risk of too much memory being consumed by the application's source code since instrumentation adds a considerable amount of shadow variables and member functions to each file. However, we noticed that instrumented files were only, on average, 30\% larger than their original version. Additionally, we package up the instrumented source as a .jar file, which involves a compression algorithm. We noticed that file sizes decreased to up to 40\% of their original size when being added to the .jar file. This effectively cancels out any memory overhead due to instrumentation. 
 
 A major concern with many race detectors is the slowdown incurred by the race detection algorithm running in the background. FastTrack employs \emph{epochs} to help reduce this overhead, which makes a significant improvement compared to tools such as Eraser that can cause applications to run 100 times slower \cite{Savage1997}. We noticed slowdowns around 10 times the original applications execution time, which is consistent to the performance overhead of the original FastTrack system running on a desktop system \cite{Flanagan2010}.
 
@@ -178,9 +179,11 @@ A significant limit of our system is the inability to instrument code that uses 
 
 Although we have proved the concept that FastTrack can be applied to the Android mobile operating system, it is not yet a complete data race detector. Before a fully robust race detector can be written for Android, a instrumentation class must be added to Android that allows the instrumentation of .dex files (compiled Java code format used on the Dalvik VM).
 
+An area of future work could be experimentation with tools that can convert .dex files to .class files. The ability to convert Dalvik Virtual Machine bytecode to a format that can be instrumented would allow our implementation of FastTrack to instrument the entirety of an Android application's code with the FastTrack system calls. If this could be achieved, the usefulness of the race detector would increase dramatically.
 
-\section{Conclusion}
-Our analysis of a range of data race detectors and record and replay systems has led us to the conclusion that FastTrack is the best option for mobile systems. It runs with relatively low overhead, and can verify a \emph{happens-before} relationship for the majority of synchronization operations and memory accesses with operations that can in \emph{O(1)} complexity. Our implementation of the FastTrack tool allows for efficient and correct data race detection in Android applications that run native Java code on the Dalvik Virtual Machine.
+
+\section{Conclusion} 
+Our analysis of a range of data race detectors and record and replay systems has led us to the conclusion that FastTrack is the best option for mobile systems. It runs with relatively low overhead, and can verify a \emph{happens-before} relationship for the majority of synchronization operations and memory accesses with operations that can run in \emph{O(1)} time. Our implementation of the FastTrack tool allows for efficient and correct data race detection in Android applications that run native Java code on the Dalvik Virtual Machine. We provide an implementation that has an extremely limited interface so as to achieve maximum usability and minimum overhead required by a developer to use the tool.
 
 \bibliographystyle{acm}
 \bibliography{monitor}
