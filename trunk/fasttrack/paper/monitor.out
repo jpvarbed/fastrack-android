@@ -3,10 +3,14 @@
 \BOOKMARK [1][-]{section.3}{RoadRunner}{}
 \BOOKMARK [2][-]{subsection.3.1}{RoadRunner API}{section.3}
 \BOOKMARK [2][-]{subsection.3.2}{Instrumentation}{section.3}
-\BOOKMARK [1][-]{section.4}{Fasttrack}{}
+\BOOKMARK [1][-]{section.4}{FastTrack}{}
 \BOOKMARK [2][-]{subsection.4.1}{Happens-Before Relationship}{section.4}
-\BOOKMARK [2][-]{subsection.4.2}{Fasttrack Algorithm}{section.4}
+\BOOKMARK [2][-]{subsection.4.2}{FastTrack Algorithm}{section.4}
 \BOOKMARK [1][-]{section.5}{Implementation}{}
+\BOOKMARK [2][-]{subsection.5.1}{Instrumentation}{section.5}
+\BOOKMARK [2][-]{subsection.5.2}{Tool Startup Modifications}{section.5}
+\BOOKMARK [2][-]{subsection.5.3}{Exposed Interface}{section.5}
+\BOOKMARK [2][-]{subsection.5.4}{Integration with Android Application}{section.5}
 \BOOKMARK [1][-]{section.6}{Evaluation}{}
 \BOOKMARK [1][-]{section.7}{Conclusion}{}
 \BOOKMARK [1][-]{section.8}{References}{}
