@@ -38,9 +38,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package test;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 //import rr.state.ShadowThread;
 //import rr.tool;
 //import rr.tool.RR;
@@ -70,13 +67,18 @@ public class Test extends Thread{
 		t2.start();
 		t1.join();
 		t2.join();
+		//System.out.println("Is it " + (ITERS * 2) + "? " + y);
 
 	}
 
+    public void printSuper() {
+        System.out.println("Test super class: " + this.getClass().getSuperclass().toString());
+    }
 
     public static void main(String[] args) {
 
         Test t = new Test();
+        t.printSuper();
 
         try {
             t.startTest();
