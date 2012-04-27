@@ -38,21 +38,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package test;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 //import rr.state.ShadowThread;
-//import rr.tool;
+//import rr.tool.Tool;
 //import rr.tool.RR;
+//import tools.fasttrack.FastTrackTool;
 
 public class Test extends Thread{
 
-    static final int ITERS = 100000;
+    static final int ITERS = 100;
 
 	static int y;
 
     public void inc() {
-        y++;
+	y++;
     }
 
 	@Override
@@ -62,7 +60,10 @@ public class Test extends Thread{
 		}
 	}
 
-	public void startTest() throws Exception {
+	public static void main(String args[]) throws Exception {
+
+        System.out.println("[DAN: running main() in Test.java]");
+
 
         final Test t1 = new Test();
 		final Test t2 = new Test();
@@ -70,19 +71,7 @@ public class Test extends Thread{
 		t2.start();
 		t1.join();
 		t2.join();
+		System.out.println("Is it " + (ITERS * 2) + "? " + y);
 
 	}
-
-
-    public static void main(String[] args) {
-
-        Test t = new Test();
-
-        try {
-            t.startTest();
-        } catch (Exception e) {
-            System.out.println("Failure!");
-        }
-    }
-
 }
